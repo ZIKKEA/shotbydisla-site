@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Contact — Angel Disla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta name="description" content="Contact Angel Disla — inquiries, rates, collaborations, and creative work." />
+
+  <!-- use root paths so URL stays clean -->
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/assets/global.css">
+
+  <style>
+    :root{
+      --bg0:#07080a;
+      --bg1:#0a0b0f;
+      --fg:#ffffff;
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --shadow: 0 22px 70px rgba(0,0,0,.62);
+      --r:20px;
+      --max:980px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 700px at 20% -10%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(255,255,255,.04), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.01em;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:120px 20px 80px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      padding:42px;
+
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .75s ease, transform .75s ease;
+      will-change: opacity, transform;
+    }
+    .card.in{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    h1{
+      margin:0 0 14px;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing:-.02em;
+      font-weight:650;
+    }
+
+    .lead{
+      margin:0 0 26px;
+      font-size:15px;
+      line-height:1.75;
+      color:var(--muted);
+      max-width:70ch;
+    }
+
+    .contactBlock{
+      margin-top:28px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .item{display:flex; flex-direction:column; gap:4px;}
+
+    .label{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted2);
+    }
+
+    .value{font-size:15px;}
+
+    .value a{
+      border-bottom:1px solid rgba(255,255,255,.18);
+      padding-bottom:1px;
+      transition: border-color .18s ease, opacity .18s ease;
+    }
+    .value a:hover{
+      border-color:rgba(255,255,255,.42);
+      opacity:.92;
+    }
+
+    footer{
+      margin-top:36px;
+      text-align:center;
+      font-size:12px;
+      opacity:.55;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .card{opacity:1; transform:none; transition:none;}
+    }
+
+    @media (max-width:640px){
+      .card{padding:32px 24px}
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAV (root-relative links keep URLs clean) -->
+<div class="top">
+  <div class="topInner" style="max-width:1180px;">
+    <a class="brand" href="/">Angel Disla</a>
+    <div class="nav">
+      <a href="/">Home</a>
+      <a href="/work/">Work</a>
+      <a href="/video/">Video</a>
+      <a href="/photo/">Photo</a>
+      <a class="active" href="/contact/">Contact</a>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="card" id="contactCard">
+
+    <h1>Let’s connect.</h1>
+
+    <p class="lead">
+      For project inquiries, rates, collaborations, or general questions,
+      feel free to reach out. I’m always open to thoughtful creative work
+      and conversations that align with my approach.
+    </p>
+
+    <div class="contactBlock">
+
+      <div class="item">
+        <div class="label">Email</div>
+        <div class="value">
+          <a href="mailto:angeldisla65@gmail.com">angeldisla65@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="label">Instagram</div>
+        <div class="value">
+          <a href="https://www.instagram.com/shotbydisla/" target="_blank" rel="noopener">
+            @shotbydisla
+          </a>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="label">LinkedIn</div>
+        <div class="value">
+          <a href="https://www.linkedin.com/in/angel-disla/" target="_blank" rel="noopener">
+            linkedin.com/in/angel-disla
+          </a>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="label">YouTube</div>
+        <div class="value">
+          <a href="https://www.youtube.com/@ZIKKEA" target="_blank" rel="noopener">
+            youtube.com/@ZIKKEA
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>© <span id="y"></span> Angel Disla</footer>
+</main>
+
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+  window.addEventListener("load", () => {
+    document.getElementById("contactCard").classList.add("in");
+  });
+</script>
+
+</body>
+</html>

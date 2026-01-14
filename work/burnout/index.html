@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Burnout — Angel Disla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b0c">
+
+  <link rel="icon" href="../../assets/favicon.ico">
+  <link rel="stylesheet" href="../../assets/global.css">
+
+  <style>
+    :root{
+      --bg0:#07080a;
+      --bg1:#0a0b0f;
+      --fg:#fff;
+      --muted:rgba(255,255,255,.70);
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 26px 90px rgba(0,0,0,.68);
+      --r:22px;
+      --max: 1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(255,255,255,.07), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(255,255,255,.04), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.01em;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 70px;}
+    .card{
+      border-radius: 26px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .pad{padding:22px 22px 20px;}
+    .crumb{
+      font-size:12px;
+      color:rgba(255,255,255,.55);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    h1{
+      margin:0 0 8px;
+      font-size: clamp(34px, 4vw, 52px);
+      letter-spacing:-.03em;
+      line-height:1.05;
+    }
+    .desc{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.8;
+      max-width:85ch;
+    }
+
+    /* Player */
+    .player{
+      width:100%;
+      aspect-ratio: 16/9;
+      background:#000;
+      position:relative;
+      border-top:1px solid rgba(255,255,255,.10);
+    }
+    .player iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+    .playerPlaceholder{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(900px 500px at 25% 10%, rgba(255,255,255,.08), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.55));
+      color:rgba(255,255,255,.72);
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    /* Section heading */
+    .section{
+      margin-top:18px;
+      border-radius: 26px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .sectionHead{
+      padding:16px 18px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .label{
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.65);
+      margin:0;
+    }
+    .hint{
+      font-size:12px;
+      color:rgba(255,255,255,.50);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin:0;
+    }
+
+    /* Stills grid */
+    .grid{
+      padding:14px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+    }
+    .ph{
+      grid-column: span 4;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.35);
+      cursor:pointer;
+      position:relative;
+      transform: translateY(0);
+      transition: transform .18s ease, border-color .18s ease;
+      isolation:isolate;
+    }
+    .ph:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.20);
+    }
+    .ph img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      aspect-ratio: 16/10;
+      transform: scale(1.02);
+      transition: transform .35s ease;
+      filter: saturate(.98) contrast(1.02);
+    }
+    .ph:hover img{transform: scale(1.06)}
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.86);
+      display:none;
+      place-items:center;
+      z-index:9999;
+      padding:24px;
+    }
+    .lightbox.open{display:grid;}
+    .lbInner{
+      width:min(1100px, 100%);
+      height:min(80vh, 780px);
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      box-shadow: 0 26px 90px rgba(0,0,0,.70);
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+    }
+    .lbImg{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      background:#000;
+    }
+    .lbTop{
+      position:absolute;
+      top:14px; left:14px; right:14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      pointer-events:none;
+    }
+    .lbCount{
+      pointer-events:auto;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.70);
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.12);
+      padding:8px 10px;
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+    }
+    .lbClose{
+      pointer-events:auto;
+      width:40px; height:40px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      backdrop-filter: blur(10px);
+    }
+    .lbClose svg{width:18px;height:18px; fill:#fff; opacity:.9}
+
+    footer{
+      margin-top:26px;
+      text-align:center;
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    @media (max-width:900px){
+      .ph{grid-column: span 6;}
+    }
+    @media (max-width:640px){
+      .ph{grid-column: span 12;}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- GLOBAL NAV -->
+  <div class="top">
+    <div class="topInner" style="max-width:1100px;">
+      <a class="brand" href="../../index.html">Angel Disla</a>
+      <div class="nav">
+        <a href="../../index.html">Home</a>
+        <a href="../../work/">Work</a>
+        <a href="../../video/">Video</a>
+        <a href="../../photo/">Photo</a>
+        <a class="active" href="./">Burnout</a>
+        <a href="mailto:angeldisla65@gmail.com">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- HERO CARD -->
+    <section class="card">
+      <div class="pad">
+        <div class="crumb">Home / Work / Burnout</div>
+        <h1>Burnout</h1>
+        <p class="desc">
+          A reverse-told short film tracing addiction back to its first spark—moving through memory, pressure,
+          and emotional fallout with a blend of gritty realism and dreamlike visual language.
+        </p>
+      </div>
+
+      <!-- OPTIONAL: YouTube embed (replace VIDEO_ID) -->
+      <div class="player" id="player">
+        <div class="playerPlaceholder">Trailer / excerpt goes here</div>
+        <!-- When you have a YouTube ID, replace the block below by removing placeholder and adding iframe:
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/VIDEO_ID?autoplay=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&cc_load_policy=0&controls=1&fs=1"
+          title="Burnout"
+          allowfullscreen></iframe>
+        -->
+      </div>
+    </section>
+
+    <!-- STILLS -->
+    <section class="section">
+      <div class="sectionHead">
+        <p class="label">Select Frames</p>
+        <p class="hint">Click to view fullscreen</p>
+      </div>
+
+      <div class="grid" id="stills">
+        <!-- These paths assume files exist at: /work/burnout/assets/stills/01.jpg etc -->
+        <div class="ph" data-src="./assets/stills/01.jpg"><img loading="lazy" src="./assets/stills/01.jpg" alt="Burnout still 01"></div>
+        <div class="ph" data-src="./assets/stills/02.jpg"><img loading="lazy" src="./assets/stills/02.jpg" alt="Burnout still 02"></div>
+        <div class="ph" data-src="./assets/stills/03.jpg"><img loading="lazy" src="./assets/stills/03.jpg" alt="Burnout still 03"></div>
+      </div>
+    </section>
+
+    <footer>© <span id="y"></span> Angel Disla</footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lbInner" role="dialog" aria-label="Image viewer">
+      <div class="lbTop">
+        <div class="lbCount" id="lbCount">1 / 1</div>
+        <button class="lbClose" id="lbClose" aria-label="Close">
+          <svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg>
+        </button>
+      </div>
+      <img class="lbImg" id="lbImg" alt="Expanded still">
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    const stills = Array.from(document.querySelectorAll("#stills .ph"));
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbCount = document.getElementById("lbCount");
+    const lbClose = document.getElementById("lbClose");
+    let idx = 0;
+
+    function openAt(i){
+      idx = (i + stills.length) % stills.length;
+      const src = stills[idx].getAttribute("data-src");
+      lbImg.src = src;
+      lbCount.textContent = `${idx + 1} / ${stills.length}`;
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden","false");
+    }
+    function close(){
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden","true");
+      lbImg.src = "";
+    }
+
+    stills.forEach((el,i)=> el.addEventListener("click", ()=> openAt(i)));
+    lbClose.addEventListener("click", close);
+    lightbox.addEventListener("click", (e)=> { if(e.target === lightbox) close(); });
+
+    document.addEventListener("keydown", (e)=>{
+      if(!lightbox.classList.contains("open")) return;
+      if(e.key === "Escape") close();
+      if(e.key === "ArrowLeft") openAt(idx - 1);
+      if(e.key === "ArrowRight") openAt(idx + 1);
+    });
+  </script>
+
+</body>
+</html>

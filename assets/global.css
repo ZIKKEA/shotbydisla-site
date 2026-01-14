@@ -1,0 +1,96 @@
+/* ===============================
+   GLOBAL NAV (shared)
+   =============================== */
+.top{
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter: blur(14px);
+  background: rgba(8,9,12,.55);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.topInner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+/* Brand (clickable) */
+.brand{
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border-radius:999px;
+  transition: opacity .18s ease, background .18s ease, transform .18s ease;
+}
+.brand:hover{
+  opacity:.92;
+  background: rgba(255,255,255,.06);
+  transform: translateY(-1px);
+}
+
+.nav{
+  display:flex;
+  gap:6px;
+  font-size:13px;
+  color:rgba(255,255,255,.78);
+  align-items:center;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+/* Nav links with underline animation */
+.nav a{
+  position:relative;
+  padding:8px 10px;
+  border-radius:999px;
+  transition: background .18s ease, color .18s ease;
+  outline:none;
+}
+.nav a:hover{
+  background:rgba(255,255,255,.07);
+  color:rgba(255,255,255,.92);
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:6px;
+  height:1px;
+  background: rgba(255,255,255,.55);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .20s ease;
+  opacity:.85;
+}
+.nav a:hover::after{
+  transform: scaleX(1);
+}
+
+/* Active page highlight */
+.nav a.active{
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.16);
+  color: rgba(255,255,255,.95);
+}
+.nav a.active::after{
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+@media (max-width:620px){
+  .nav{gap:4px}
+  .nav a{padding:8px 9px}
+  .brand{padding:8px 9px}
+}

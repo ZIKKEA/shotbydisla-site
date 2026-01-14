@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reels & Client Work — Angel Disla</title>
+  <meta name="description" content="Highlights reel, client/event work, and social-first edits by Angel Disla." />
+
+  <link rel="icon" href="/assets/favicon.ico" />
+  <meta name="theme-color" content="#07090c" />
+<link rel="stylesheet" href="../../assets/global.css">
+
+  <style>
+    :root{
+      --bg:#07090c; --fg:#eaf0f7; --muted:rgba(234,240,247,.72);
+      --line:rgba(234,240,247,.14); --shadow:0 14px 40px rgba(0,0,0,.45);
+      --r:20px; --max:1120px;
+      --accent: rgba(96,165,250,.22);
+      --accentLine: rgba(96,165,250,.38);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(96,165,250,.14), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(244,114,182,.10), transparent 55%),
+        var(--bg);
+      color:var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 72px}
+    header{display:flex; justify-content:space-between; align-items:center; gap:12px}
+    .brand{font-weight:800; letter-spacing:.12em; font-size:12px; opacity:.95}
+    nav{display:flex; gap:14px; font-size:14px; color:var(--muted); flex-wrap:wrap; justify-content:flex-end}
+    nav a{padding:8px 10px; border-radius:12px}
+    nav a:hover{background:rgba(255,255,255,.06); color:var(--fg)}
+
+    .hero{
+      margin-top:18px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:rgba(255,255,255,.03);
+    }
+    .heroInner{padding:18px}
+    .crumb{color:var(--muted); font-size:14px; margin:0 0 8px}
+    .crumb a{color:rgba(234,240,247,.86)}
+    h1{margin:6px 0 10px; font-size:42px; letter-spacing:-.02em; line-height:1.05}
+    .lead{margin:0; color:var(--muted); max-width:80ch}
+
+    .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:11px 14px; border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      font-size:14px; cursor:pointer;
+    }
+    .btn.primary{background:var(--accent); border-color:var(--accentLine); font-weight:700}
+    .btn:hover{background:rgba(255,255,255,.08)}
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      background:rgba(255,255,255,.03);
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-top:14px;
+    }
+    .k{font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 10px}
+    .h{margin:0 0 10px; font-size:16px; letter-spacing:.06em; text-transform:uppercase; color:rgba(234,240,247,.70); font-weight:800}
+    .p{margin:0; color:var(--muted)}
+    .sep{height:1px; background:rgba(234,240,247,.10); margin:14px 0}
+
+    .pills{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .pill{
+      font-size:12px; color:rgba(234,240,247,.86);
+      border:1px solid rgba(234,240,247,.16);
+      background:rgba(0,0,0,.18);
+      padding:6px 10px; border-radius:999px;
+    }
+
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:14px; margin-top:14px}
+
+    .videoCard{
+      border:1px solid rgba(234,240,247,.14);
+      border-radius:18px;
+      overflow:hidden;
+      background:#0b0f16;
+      box-shadow:var(--shadow);
+    }
+    .embed{
+      aspect-ratio:16/9;
+      background:#05070a;
+    }
+    .embed iframe{
+      width:100%; height:100%;
+      border:0; display:block;
+    }
+    .meta{padding:14px}
+    .title{margin:0 0 6px; font-weight:800}
+    .sub{margin:0; color:var(--muted); font-size:13px}
+
+    footer{margin-top:44px; color:rgba(234,240,247,.55); font-size:13px}
+
+    .reveal{opacity:0; transform:translateY(10px); transition:.7s}
+    .reveal.in{opacity:1; transform:none}
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none}
+      html{scroll-behavior:auto}
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+  <header class="reveal">
+    <div class="brand" id="brandName">ANGEL DISLA</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/#clients">Clients</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero reveal">
+    <div class="heroInner">
+      <p class="crumb"><a href="/">Home</a> / <a href="/#work">Work</a> / Reels</p>
+      <h1>Reels & Client Work</h1>
+      <p class="lead">
+        A curated set of client/event edits, recaps, and social-first work. (We can swap these out anytime.)
+      </p>
+      <div class="cta">
+        <a class="btn primary" id="btnStartTop" href="#">Start a project</a>
+        <a class="btn" id="btnEmailTop" href="#">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel reveal">
+    <p class="k">What you’ll see</p>
+    <div class="h">Style + deliverables</div>
+    <p class="p">Cinematic pacing, clean transitions, detail-forward shots, and edits built to feel premium on web and social.</p>
+    <div class="pills">
+      <span class="pill">Event Recaps</span>
+      <span class="pill">Portraits</span>
+      <span class="pill">Social-first edits</span>
+      <span class="pill">Commercial highlights</span>
+      <span class="pill">Color finishing</span>
+    </div>
+  </section>
+
+  <section class="grid reveal" id="videos">
+
+    <!-- VIDEO 1 (replace the src with your YouTube/Vimeo embed later) -->
+    <div class="videoCard">
+      <div class="embed">
+        <iframe
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Reel 01"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+      <div class="meta">
+        <p class="title">Highlights Reel</p>
+        <p class="sub">Recap • Social • Fast-paced cut</p>
+      </div>
+    </div>
+
+    <!-- VIDEO 2 -->
+    <div class="videoCard">
+      <div class="embed">
+        <iframe
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Reel 02"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+      <div class="meta">
+        <p class="title">Client / Event Edit</p>
+        <p class="sub">Coverage • Story-driven highlights</p>
+      </div>
+    </div>
+
+    <!-- VIDEO 3 -->
+    <div class="videoCard">
+      <div class="embed">
+        <iframe
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Reel 03"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+      <div class="meta">
+        <p class="title">Social-First Cut</p>
+        <p class="sub">Punchy • Clean • Platform-ready</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="panel reveal" style="margin-top:14px">
+    <p class="k">Contact</p>
+    <div class="h">Let’s make something</div>
+    <p class="p" style="margin-bottom:12px">If you want a reel, recap, or branded series that feels cinematic, I’m down.</p>
+    <div class="cta">
+      <a class="btn primary" id="btnStartBottom" href="#">Start a project</a>
+      <a class="btn" id="btnEmailBottom" href="#">Email</a>
+      <a class="btn" href="/">Back to home</a>
+    </div>
+  </section>
+
+  <footer class="reveal">© <span id="y"></span> <span id="footName">Angel Disla</span> · <span id="footLoc">Massachusetts</span> · Built independently</footer>
+</div>
+
+<script src="/assets/profile.js"></script>
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+  const P = window.SITE_PROFILE || { name:"Angel Disla", location:"Massachusetts", email:"YOUR_EMAIL_HERE" };
+  document.getElementById("brandName").textContent = (P.name || "Angel Disla").toUpperCase();
+  document.getElementById("footName").textContent = P.name || "Angel Disla";
+  document.getElementById("footLoc").textContent = P.location || "Massachusetts";
+
+  const mailto = `mailto:${P.email || "YOUR_EMAIL_HERE"}`;
+  ["btnStartTop","btnEmailTop","btnStartBottom","btnEmailBottom"].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.href = mailto;
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => e.isIntersecting && e.target.classList.add("in"));
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
