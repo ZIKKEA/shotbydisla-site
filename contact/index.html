@@ -1,201 +1,297 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact — Angel Disla</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0b0c">
-  <meta name="description" content="Contact Angel Disla — inquiries, rates, collaborations, and creative work." />
-
-  <!-- use root paths so URL stays clean -->
-  <link rel="icon" href="/assets/favicon.ico">
-  <link rel="stylesheet" href="/assets/global.css">
+  <meta name="description" content="Contact Angel Disla — rates, shoots, collaborations." />
+  <link rel="icon" href="/favicon.ico" />
 
   <style>
     :root{
-      --bg0:#07080a;
-      --bg1:#0a0b0f;
-      --fg:#ffffff;
-      --muted:rgba(255,255,255,.70);
-      --muted2:rgba(255,255,255,.55);
-      --shadow: 0 22px 70px rgba(0,0,0,.62);
-      --r:20px;
-      --max:980px;
+      --bg:#07090c;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.66);
+      --muted2:rgba(255,255,255,.52);
+      --shadow: 0 25px 80px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:24px;
+      --max:1100px;
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
+
     body{
       margin:0;
-      color:var(--fg);
-      background:
-        radial-gradient(1200px 700px at 20% -10%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(900px 600px at 90% 10%, rgba(255,255,255,.04), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      letter-spacing:.01em;
-      overflow-x:hidden;
+      color:var(--text);
+      background:
+        radial-gradient(1400px 900px at 20% 10%, rgba(120,180,255,.12), rgba(7,9,12,0) 65%),
+        radial-gradient(1300px 850px at 85% 12%, rgba(170,120,255,.11), rgba(7,9,12,0) 70%),
+        radial-gradient(1100px 800px at 70% 92%, rgba(120,255,200,.07), rgba(7,9,12,0) 72%),
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.35)),
+        var(--bg);
+      background-attachment: fixed;
     }
-    a{color:inherit;text-decoration:none}
 
+    /* top nav */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(7,9,12,.75), rgba(7,9,12,.35));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .topbar-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      font-weight:700;
+      letter-spacing:.10em;
+      font-size:12px;
+      text-transform:uppercase;
+      color:var(--text);
+      text-decoration:none;
+    }
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:999px;
+      transition: all .15s ease;
+    }
+    nav a:hover{color:var(--text); background:rgba(255,255,255,.06)}
+    nav a.active{
+      color:var(--text);
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08)
+    }
+    .nav-right{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      justify-content:flex-end
+    }
+
+    /* layout */
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:120px 20px 80px;
+      padding:26px 18px 64px;
     }
-
-    .card{
+    .hero{
+      padding:24px;
+      border-radius:var(--radius2);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:var(--r);
-      box-shadow:var(--shadow);
-      padding:42px;
-
-      opacity:0;
-      transform: translateY(14px);
-      transition: opacity .75s ease, transform .75s ease;
-      will-change: opacity, transform;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      overflow:hidden;
     }
-    .card.in{
-      opacity:1;
-      transform: translateY(0);
-    }
-
-    h1{
-      margin:0 0 14px;
-      font-size: clamp(28px, 4vw, 40px);
-      letter-spacing:-.02em;
-      font-weight:650;
-    }
-
-    .lead{
-      margin:0 0 26px;
-      font-size:15px;
-      line-height:1.75;
-      color:var(--muted);
-      max-width:70ch;
-    }
-
-    .contactBlock{
-      margin-top:28px;
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
-
-    .item{display:flex; flex-direction:column; gap:4px;}
-
-    .label{
+    .kicker{
       font-size:12px;
-      letter-spacing:.14em;
+      letter-spacing:.12em;
       text-transform:uppercase;
       color:var(--muted2);
+      margin:0 0 8px 0;
+    }
+    h1{
+      margin:0;
+      font-size:34px;
+      line-height:1.08;
+      letter-spacing:-.02em;
+    }
+    .sub{
+      margin:10px 0 0 0;
+      color:var(--muted);
+      max-width:78ch;
+      line-height:1.65;
+      font-size:14px;
     }
 
-    .value{font-size:15px;}
+    /* contact card */
+    .card{
+      margin-top:18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+      overflow:hidden;
 
-    .value a{
+      display:grid;
+      grid-template-columns: 220px 1fr;
+      gap:0;
+    }
+
+    .headshot{
+      position:relative;
+      min-height: 260px;
+      background: rgba(255,255,255,.02);
+    }
+    .headshot img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(.98) contrast(1.03);
+    }
+    .headshot::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+      pointer-events:none;
+    }
+
+    .content{
+      padding:18px 18px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:6px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-size:13px;
+      text-decoration:none;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      will-change: transform;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .list{
+      margin:6px 0 0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .list li{
+      color: rgba(255,255,255,.82);
+      font-size:14px;
+      line-height:1.5;
+    }
+    .list a{
+      color: rgba(255,255,255,.92);
+      text-decoration:none;
       border-bottom:1px solid rgba(255,255,255,.18);
-      padding-bottom:1px;
-      transition: border-color .18s ease, opacity .18s ease;
     }
-    .value a:hover{
-      border-color:rgba(255,255,255,.42);
-      opacity:.92;
+    .list a:hover{ border-bottom-color: rgba(255,255,255,.36); }
+
+    /* tiny load animation */
+    .pop{
+      opacity:0;
+      transform: translateY(10px) scale(.99);
+      animation: popIn .55s ease forwards;
+    }
+    @keyframes popIn{
+      to{ opacity:1; transform: translateY(0) scale(1); }
     }
 
-    footer{
-      margin-top:36px;
-      text-align:center;
-      font-size:12px;
-      opacity:.55;
-      letter-spacing:.08em;
-      text-transform:uppercase;
+    @media (max-width: 820px){
+      .card{ grid-template-columns: 1fr; }
+      .headshot{ min-height: 260px; }
+      .headshot::after{
+        background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55));
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
-      .card{opacity:1; transform:none; transition:none;}
+      body{background-attachment: scroll;}
+      .btn{transition:none}
+      .btn:hover{transform:none}
+      .pop{animation:none; opacity:1; transform:none}
     }
 
-    @media (max-width:640px){
-      .card{padding:32px 24px}
+    footer{
+      margin-top:22px;
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+      text-align:center;
     }
   </style>
 </head>
 
 <body>
 
-<!-- NAV (root-relative links keep URLs clean) -->
-<div class="top">
-  <div class="topInner" style="max-width:1180px;">
-    <a class="brand" href="/">Angel Disla</a>
-    <div class="nav">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">ANGEL DISLA</a>
+    <nav class="nav-right">
       <a href="/">Home</a>
       <a href="/work/">Work</a>
       <a href="/video/">Video</a>
       <a href="/photo/">Photo</a>
       <a class="active" href="/contact/">Contact</a>
-    </div>
+    </nav>
   </div>
-</div>
+</header>
 
 <main class="wrap">
-  <div class="card" id="contactCard">
-
-    <h1>Let’s connect.</h1>
-
-    <p class="lead">
-      For project inquiries, rates, collaborations, or general questions,
-      feel free to reach out. I’m always open to thoughtful creative work
-      and conversations that align with my approach.
+  <section class="hero pop">
+    <p class="kicker">Contact</p>
+    <h1>Let’s work.</h1>
+    <p class="sub">
+      If you have questions about rates, shoots, collaborations, or availability, reach out anytime.
+      I’m quickest on email, but you can also find me on Instagram and LinkedIn.
     </p>
 
-    <div class="contactBlock">
-
-      <div class="item">
-        <div class="label">Email</div>
-        <div class="value">
-          <a href="mailto:angeldisla65@gmail.com">angeldisla65@gmail.com</a>
-        </div>
+    <div class="card">
+      <!-- IMPORTANT: put your headshot at /contact/assets/headshot.jpg OR change this path -->
+      <div class="headshot">
+        <img src="/assets/headshot.jpg" alt="Angel Disla headshot" loading="lazy">
       </div>
 
-      <div class="item">
-        <div class="label">Instagram</div>
-        <div class="value">
-          <a href="https://www.instagram.com/shotbydisla/" target="_blank" rel="noopener">
-            @shotbydisla
-          </a>
+      <div class="content">
+        <ul class="list">
+          <li><strong>Email:</strong> <a href="mailto:angeldisla65@gmail.com">angeldisla65@gmail.com</a></li>
+          <li><strong>Instagram:</strong> <a href="https://www.instagram.com/shotbydisla/" target="_blank" rel="noopener">@shotbydisla</a></li>
+          <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/" target="_blank" rel="noopener">View profile</a></li>
+          <!-- Optional: add more links -->
+          <!-- <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@YOURHANDLE" target="_blank" rel="noopener">@YOURHANDLE</a></li> -->
+        </ul>
+
+        <div class="row">
+          <a class="btn" href="mailto:angeldisla65@gmail.com">Email me</a>
+          <a class="btn" href="https://www.instagram.com/shotbydisla/" target="_blank" rel="noopener">DM on Instagram</a>
+          <a class="btn" href="/work/">See work</a>
         </div>
       </div>
-
-      <div class="item">
-        <div class="label">LinkedIn</div>
-        <div class="value">
-          <a href="https://www.linkedin.com/in/angel-disla/" target="_blank" rel="noopener">
-            linkedin.com/in/angel-disla
-          </a>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="label">YouTube</div>
-        <div class="value">
-          <a href="https://www.youtube.com/@ZIKKEA" target="_blank" rel="noopener">
-            youtube.com/@ZIKKEA
-          </a>
-        </div>
-      </div>
-
     </div>
 
-  </div>
-
-  <footer>© <span id="y"></span> Angel Disla</footer>
+    <footer>© <span id="y"></span> Angel Disla</footer>
+  </section>
 </main>
 
 <script>
   document.getElementById("y").textContent = new Date().getFullYear();
-  window.addEventListener("load", () => {
-    document.getElementById("contactCard").classList.add("in");
-  });
 </script>
 
 </body>
