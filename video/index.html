@@ -109,13 +109,6 @@
       line-height:1.08;
       letter-spacing:-.02em;
     }
-    .sub{
-      margin:10px 0 0 0;
-      color:var(--muted);
-      max-width:72ch;
-      line-height:1.6;
-      font-size:14px;
-    }
 
     .section{
       margin-top:20px;
@@ -142,28 +135,24 @@
       font-size:12px;
     }
 
-    /* ===== YouTube grid: 2-column desktop ===== */
+    /* YouTube grid */
     .yt-grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
       gap:18px;
-      align-items:start;
     }
     .yt-card{ grid-column: span 6; }
-    @media (max-width: 980px){
+    @media (max-width:980px){
       .yt-card{ grid-column: span 12; }
     }
 
-    /* Hover lift + tiny glow */
     .yt-item{
       border-radius:18px;
       overflow:hidden;
       border:1px solid var(--line);
       background:rgba(255,255,255,.03);
       box-shadow:0 18px 55px rgba(0,0,0,.35);
-      transform: translateY(0);
       transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-      will-change: transform;
     }
     .yt-item:hover{
       transform: translateY(-6px);
@@ -174,14 +163,11 @@
         0 0 38px rgba(120,180,255,.10);
     }
 
-    /* Smaller footprint */
     .yt-media{
-      width:100%;
-      max-width: 560px;
-      margin: 0 auto;
-      padding: 16px 16px 0;
+      max-width:560px;
+      margin:0 auto;
+      padding:16px 16px 0;
     }
-
     .yt-wrap{
       position:relative;
       width:100%;
@@ -190,48 +176,36 @@
       overflow:hidden;
       background:#000;
       border:1px solid rgba(255,255,255,.08);
-      isolation:isolate;
     }
-
     .yt-thumb{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
       object-fit:cover;
-      transform: scale(1.02);
-      filter: saturate(1.02) contrast(1.02);
     }
 
-    /* Subtle film grain overlay */
     .grain{
       position:absolute;
       inset:-20%;
-      pointer-events:none;
-      opacity:.12; /* subtle */
+      opacity:.12;
       mix-blend-mode: overlay;
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-      background-size: 220px 220px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
       animation: grainMove 5.5s steps(8) infinite;
-      transform: translateZ(0);
+      pointer-events:none;
     }
     @keyframes grainMove{
       0%{transform:translate(0,0)}
-      20%{transform:translate(-8%, 6%)}
-      40%{transform:translate(7%, -10%)}
-      60%{transform:translate(-6%, -4%)}
-      80%{transform:translate(10%, 5%)}
+      50%{transform:translate(-8%,6%)}
       100%{transform:translate(0,0)}
     }
 
-    /* Click overlay */
     .yt-overlay{
       position:absolute;
       inset:0;
       display:grid;
       place-items:center;
-      background: linear-gradient(to top, rgba(0,0,0,.58), rgba(0,0,0,.12));
+      background: linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,.12));
       cursor:pointer;
     }
 
@@ -240,40 +214,23 @@
       border-radius:999px;
       border:1px solid rgba(255,255,255,.22);
       background: rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
       display:grid;
       place-items:center;
-      box-shadow: 0 18px 45px rgba(0,0,0,.45);
-      transition: transform .16s ease, background .16s ease, border-color .16s ease;
-    }
-    .yt-overlay:hover .playBtn{
-      transform: scale(1.03);
-      background: rgba(0,0,0,.45);
-      border-color: rgba(255,255,255,.30);
     }
     .playBtn svg{
-      width:22px; height:22px;
+      width:22px;height:22px;
       fill:#fff;
-      opacity:.92;
       margin-left:2px;
     }
 
-    /* Titles / captions */
     .yt-meta{
-      padding: 14px 18px 16px;
+      padding:14px 18px 16px;
     }
     .yt-title{
-      margin:0 0 6px 0;
+      margin:0;
       font-size:14px;
       font-weight:700;
-      letter-spacing:.01em;
       color:rgba(255,255,255,.90);
-    }
-    .yt-cap{
-      margin:0;
-      font-size:12px;
-      line-height:1.6;
-      color:rgba(255,255,255,.62);
     }
 
     footer{
@@ -281,13 +238,6 @@
       color:rgba(255,255,255,.55);
       font-size:12px;
       text-align:center;
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .yt-item{transition:none}
-      .yt-item:hover{transform:none}
-      .grain{animation:none}
     }
   </style>
 </head>
@@ -311,7 +261,6 @@
   <section class="hero">
     <p class="kicker">Video</p>
     <h1>Video work.</h1>
-    <p class="sub">Selected films + client pieces. Clean layout. Fast loading.</p>
 
     <div class="section">
       <div class="section-head">
@@ -325,19 +274,18 @@
         <article class="yt-card">
           <div class="yt-item">
             <div class="yt-media">
-              <div class="yt-wrap js-yt" data-id="VI_ZZvkooyw" aria-label="Play video" role="button" tabindex="0">
-                <img class="yt-thumb" src="https://i.ytimg.com/vi/VI_ZZvkooyw/hqdefault.jpg" alt="Video thumbnail" loading="lazy">
-                <div class="grain" aria-hidden="true"></div>
+              <div class="yt-wrap js-yt" data-id="VI_ZZvkooyw">
+                <img class="yt-thumb" src="https://i.ytimg.com/vi/VI_ZZvkooyw/hqdefault.jpg" loading="lazy">
+                <div class="grain"></div>
                 <div class="yt-overlay">
-                  <div class="playBtn" aria-hidden="true">
+                  <div class="playBtn">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   </div>
                 </div>
               </div>
             </div>
             <div class="yt-meta">
-              <p class="yt-title">Video Title 01</p>
-              <p class="yt-cap">Short caption — what this piece is, who it was for, or the vibe.</p>
+              <p class="yt-title">The Illusion of Love | A Cinematic Short Film</p>
             </div>
           </div>
         </article>
@@ -346,19 +294,18 @@
         <article class="yt-card">
           <div class="yt-item">
             <div class="yt-media">
-              <div class="yt-wrap js-yt" data-id="1QMiZMkOpcE" aria-label="Play video" role="button" tabindex="0">
-                <img class="yt-thumb" src="https://i.ytimg.com/vi/1QMiZMkOpcE/hqdefault.jpg" alt="Video thumbnail" loading="lazy">
-                <div class="grain" aria-hidden="true"></div>
+              <div class="yt-wrap js-yt" data-id="1QMiZMkOpcE">
+                <img class="yt-thumb" src="https://i.ytimg.com/vi/1QMiZMkOpcE/hqdefault.jpg" loading="lazy">
+                <div class="grain"></div>
                 <div class="yt-overlay">
-                  <div class="playBtn" aria-hidden="true">
+                  <div class="playBtn">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   </div>
                 </div>
               </div>
             </div>
             <div class="yt-meta">
-              <p class="yt-title">Video Title 02</p>
-              <p class="yt-cap">Short caption — one sentence. Keep it premium + minimal.</p>
+              <p class="yt-title">Ritmo Canela Academy First Recap</p>
             </div>
           </div>
         </article>
@@ -367,19 +314,18 @@
         <article class="yt-card">
           <div class="yt-item">
             <div class="yt-media">
-              <div class="yt-wrap js-yt" data-id="v_2hdFGGIRo" aria-label="Play video" role="button" tabindex="0">
-                <img class="yt-thumb" src="https://i.ytimg.com/vi/v_2hdFGGIRo/hqdefault.jpg" alt="Video thumbnail" loading="lazy">
-                <div class="grain" aria-hidden="true"></div>
+              <div class="yt-wrap js-yt" data-id="v_2hdFGGIRo">
+                <img class="yt-thumb" src="https://i.ytimg.com/vi/v_2hdFGGIRo/hqdefault.jpg" loading="lazy">
+                <div class="grain"></div>
                 <div class="yt-overlay">
-                  <div class="playBtn" aria-hidden="true">
+                  <div class="playBtn">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   </div>
                 </div>
               </div>
             </div>
             <div class="yt-meta">
-              <p class="yt-title">Video Title 03</p>
-              <p class="yt-cap">Short caption — what you want the viewer to feel or notice.</p>
+              <p class="yt-title">Gender Reveal</p>
             </div>
           </div>
         </article>
@@ -392,40 +338,12 @@
 </main>
 
 <script>
-  // year
   document.getElementById("y").textContent = new Date().getFullYear();
 
-  // Lazy-load YouTube: replace thumbnail with iframe only when clicked
-  function mountYouTube(el){
-    const id = el.getAttribute("data-id");
-    if (!id) return;
-
-    const iframe = document.createElement("iframe");
-    iframe.setAttribute(
-      "src",
-      `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3`
-    );
-    iframe.setAttribute("title", "YouTube video player");
-    iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-    iframe.setAttribute("allowfullscreen", "");
-    iframe.style.position = "absolute";
-    iframe.style.inset = "0";
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-    iframe.style.border = "0";
-
-    // clear existing children (thumb + overlay + grain)
-    el.innerHTML = "";
-    el.appendChild(iframe);
-  }
-
-  document.querySelectorAll(".js-yt").forEach((el) => {
-    el.addEventListener("click", () => mountYouTube(el));
-    el.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        mountYouTube(el);
-      }
+  document.querySelectorAll(".js-yt").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const id = el.dataset.id;
+      el.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1" allowfullscreen></iframe>`;
     });
   });
 </script>
