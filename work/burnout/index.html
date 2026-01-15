@@ -246,14 +246,16 @@
   <!-- GLOBAL NAV -->
   <div class="top">
     <div class="topInner" style="max-width:1100px;">
-      <a class="brand" href="../../index.html">Angel Disla</a>
+      <!-- clean URL -->
+      <a class="brand" href="/">Angel Disla</a>
       <div class="nav">
-        <a href="../../index.html">Home</a>
-        <a href="../../work/">Work</a>
-        <a href="../../video/">Video</a>
-        <a href="../../photo/">Photo</a>
+        <!-- clean URL -->
+        <a href="/">Home</a>
+        <a href="/work/">Work</a>
+        <a href="/video/">Video</a>
+        <a href="/photo/">Photo</a>
         <a class="active" href="./">Burnout</a>
-        <a href="mailto:angeldisla65@gmail.com">Contact</a>
+        <a href="/contact/">Contact</a>
       </div>
     </div>
   </div>
@@ -271,15 +273,15 @@
         </p>
       </div>
 
-      <!-- OPTIONAL: YouTube embed (replace VIDEO_ID) -->
+      <!-- Trailer -->
       <div class="player" id="player">
-        <div class="playerPlaceholder">Trailer / excerpt goes here</div>
-        <!-- When you have a YouTube ID, replace the block below by removing placeholder and adding iframe:
         <iframe
-          src="https://www.youtube-nocookie.com/embed/VIDEO_ID?autoplay=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&cc_load_policy=0&controls=1&fs=1"
-          title="Burnout"
-          allowfullscreen></iframe>
-        -->
+          src="https://www.youtube-nocookie.com/embed/U6Z-hncUcVA?rel=0&modestbranding=1&playsinline=1&iv_load_policy=3"
+          title="Burnout — Trailer"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
       </div>
     </section>
 
@@ -291,7 +293,6 @@
       </div>
 
       <div class="grid" id="stills">
-        <!-- These paths assume files exist at: /work/burnout/assets/stills/01.jpg etc -->
         <div class="ph" data-src="./assets/stills/01.jpg"><img loading="lazy" src="./assets/stills/01.jpg" alt="Burnout still 01"></div>
         <div class="ph" data-src="./assets/stills/02.jpg"><img loading="lazy" src="./assets/stills/02.jpg" alt="Burnout still 02"></div>
         <div class="ph" data-src="./assets/stills/03.jpg"><img loading="lazy" src="./assets/stills/03.jpg" alt="Burnout still 03"></div>
