@@ -77,39 +77,38 @@
     .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 70px;}
     h1{margin:0 0 18px; font-size:36px; letter-spacing:-.02em;}
 
-    /* BURNOUT FEATURE */
+    /* BURNOUT FEATURE (SMALLER) */
     .burnout{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:20px;
-      padding:22px;
-      border-radius:28px;
+      padding:18px 20px;
+      border-radius:24px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.035);
       box-shadow:var(--shadow);
       margin-bottom:26px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
       transition:.2s ease;
     }
     .burnout:hover{transform:translateY(-2px)}
     .burnout h2{
-      margin:0 0 8px;
-      font-size:28px;
+      margin:0;
+      font-size:22px;
       letter-spacing:-.02em;
     }
     .burnout p{
-      margin:0;
+      margin:4px 0 0;
+      font-size:13px;
       color:var(--muted);
-      line-height:1.6;
-      font-size:14px;
     }
     .burnout a{
-      margin-top:14px;
-      display:inline-block;
       font-size:12px;
       letter-spacing:.14em;
       text-transform:uppercase;
       color:#fff;
       opacity:.85;
+      white-space:nowrap;
     }
 
     /* GRID */
@@ -119,8 +118,8 @@
       gap:18px;
     }
     @media(max-width:900px){
-      .burnout{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
+      .burnout{flex-direction:column; align-items:flex-start}
     }
 
     /* VIDEO CARD */
@@ -175,9 +174,18 @@
     .play svg{width:22px;height:22px;fill:#fff}
 
     .meta{
-      padding:12px 14px;
+      padding:12px 14px 14px;
+    }
+    .title{
       font-size:13px;
       font-weight:500;
+    }
+    .role{
+      margin-top:4px;
+      font-size:11px;
+      color:var(--muted);
+      letter-spacing:.06em;
+      text-transform:uppercase;
     }
 
     footer{
@@ -212,13 +220,9 @@
   <section class="burnout">
     <div>
       <h2>Burnout</h2>
-      <p>A reverse-told short film exploring addiction, memory, and emotional collapse.</p>
-      <a href="/work/burnout/">View project →</a>
+      <p>Short film · Narrative</p>
     </div>
-    <div class="wrap16x9">
-      <iframe src="https://www.youtube-nocookie.com/embed/U6Z-hncUcVA?rel=0&modestbranding=1"
-        allowfullscreen style="width:100%;height:100%;border:0"></iframe>
-    </div>
+    <a href="/work/burnout/">View Project →</a>
   </section>
 
   <!-- VIDEO GRID -->
@@ -231,20 +235,20 @@
 document.getElementById("y").textContent = new Date().getFullYear();
 
 const videos = [
-  ["0k75PybeW5s","Minds With Purpose Commercial (2025)"],
-  ["MNQa8dPwRIQ","Brady Bunch — UML Media Services (2025)"],
-  ["1QMiZMkOpcE","Ritmo Canela Academy First Recap (2025)"],
-  ["EzfLch2vMGM","Aarons Presents Promo Video (2023)"],
-  ["U7f4xLae_rk","Is Commuting To UML The Right Option For You? (2024)"],
-  ["wAyCnb4ySaM","Burnout Teaser (2024)"],
-  ["u3Gr4A3kY0M","Gold Athletics YouTube Promo (Unofficial) (2024)"],
-  ["n6hEstlTQ6s","Within Without (2023)"],
-  ["VI_ZZvkooyw","The Illusion of Love | A Cinematic Short Film (2023)"]
+  ["0k75PybeW5s","Minds With Purpose Commercial (2025)","Director · Cinematographer · Editor"],
+  ["MNQa8dPwRIQ","Brady Bunch — UML Media Services (2025)","Director · Cinematographer · Editor"],
+  ["1QMiZMkOpcE","Ritmo Canela Academy First Recap (2025)","Director · Cinematographer · Editor"],
+  ["EzfLch2vMGM","Aarons Presents Promo Video (2023)","Sound Recordist · Cinematographer · Editor"],
+  ["U7f4xLae_rk","Is Commuting To UML The Right Option For You? (2024)","Director · Cinematographer · Editor"],
+  ["wAyCnb4ySaM","Burnout Teaser (2024)","Director · Cinematographer · Editor"],
+  ["u3Gr4A3kY0M","Gold Athletics YouTube Promo (Unofficial) (2024)","Director · Cinematographer · Editor"],
+  ["n6hEstlTQ6s","Within Without (2023)",""],
+  ["VI_ZZvkooyw","The Illusion of Love | A Cinematic Short Film (2023)","Director · Cinematographer · Editor"]
 ];
 
 const grid = document.getElementById("videos");
 
-videos.forEach(([id,title])=>{
+videos.forEach(([id,title,role])=>{
   const el = document.createElement("article");
   el.className="card";
   el.innerHTML = `
@@ -253,7 +257,10 @@ videos.forEach(([id,title])=>{
       <div class="grain"></div>
       <div class="play"><div><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
     </div>
-    <div class="meta">${title}</div>
+    <div class="meta">
+      <div class="title">${title}</div>
+      ${role ? `<div class="role">${role}</div>` : ``}
+    </div>
   `;
   el.querySelector(".wrap16x9").onclick=()=>{
     el.querySelector(".wrap16x9").innerHTML =
