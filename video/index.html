@@ -4,41 +4,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Video — Angel Disla</title>
-  <meta name="description" content="Video work by Angel Disla — films and selected video projects." />
+  <meta name="description" content="Video work by Angel Disla — narrative films and commercial projects." />
   <link rel="icon" href="/favicon.ico" />
 
   <style>
     :root{
       --bg:#07090c;
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.66);
+      --text:rgba(255,255,255,.94);
+      --muted:rgba(255,255,255,.60);
       --line:rgba(255,255,255,.10);
-      --shadow: 0 25px 80px rgba(0,0,0,.55);
-      --radius:18px;
-      --radius2:24px;
+      --shadow:0 28px 90px rgba(0,0,0,.65);
+      --radius:22px;
       --max:1100px;
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
       background:
-        radial-gradient(1400px 900px at 20% 10%, rgba(120,180,255,.12), transparent 65%),
-        radial-gradient(1300px 850px at 85% 12%, rgba(170,120,255,.11), transparent 70%),
-        radial-gradient(1100px 800px at 70% 92%, rgba(120,255,200,.07), transparent 72%),
-        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.35)),
+        radial-gradient(1400px 900px at 20% 10%, rgba(120,180,255,.12), transparent 60%),
+        radial-gradient(1200px 800px at 80% 15%, rgba(160,120,255,.10), transparent 65%),
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
         var(--bg);
       background-attachment: fixed;
     }
 
     /* NAV */
     .topbar{
-      position:sticky; top:0; z-index:50;
+      position:sticky;
+      top:0;
+      z-index:50;
       backdrop-filter: blur(10px);
       background: linear-gradient(to bottom, rgba(7,9,12,.75), rgba(7,9,12,.35));
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid var(--line);
     }
     .topbar-inner{
       max-width:var(--max);
@@ -49,101 +51,110 @@
       align-items:center;
     }
     .brand{
-      font-size:12px;
-      letter-spacing:.12em;
       font-weight:700;
+      letter-spacing:.12em;
+      font-size:12px;
       text-transform:uppercase;
-      color:#fff;
       text-decoration:none;
+      color:var(--text);
     }
     nav a{
-      font-size:13px;
       color:var(--muted);
+      text-decoration:none;
+      font-size:13px;
       padding:8px 10px;
       border-radius:999px;
-      text-decoration:none;
+      transition:.15s ease;
     }
-    nav a.active,
-    nav a:hover{
-      color:#fff;
+    nav a:hover{color:var(--text); background:rgba(255,255,255,.06)}
+    nav a.active{
+      color:var(--text);
       background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
     }
 
     /* LAYOUT */
-    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 64px;}
-    .hero{
-      padding:24px;
-      border-radius:var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow: var(--shadow);
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 70px;}
+    h1{margin:0 0 18px; font-size:36px; letter-spacing:-.02em;}
+
+    /* BURNOUT FEATURE */
+    .burnout{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:20px;
+      padding:22px;
+      border-radius:28px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+      box-shadow:var(--shadow);
+      margin-bottom:26px;
+      transition:.2s ease;
     }
-    .kicker{
+    .burnout:hover{transform:translateY(-2px)}
+    .burnout h2{
+      margin:0 0 8px;
+      font-size:28px;
+      letter-spacing:-.02em;
+    }
+    .burnout p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+    .burnout a{
+      margin-top:14px;
+      display:inline-block;
       font-size:12px;
-      letter-spacing:.12em;
+      letter-spacing:.14em;
       text-transform:uppercase;
-      color:rgba(255,255,255,.55);
-      margin-bottom:8px;
+      color:#fff;
+      opacity:.85;
     }
-    h1{margin:0; font-size:34px;}
 
     /* GRID */
     .grid{
-      margin-top:24px;
       display:grid;
-      grid-template-columns:repeat(12,1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap:18px;
     }
-    .card{grid-column:span 6;}
-    @media(max-width:980px){ .card{grid-column:span 12;} }
+    @media(max-width:900px){
+      .burnout{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+    }
 
-    .video{
-      border-radius:18px;
-      overflow:hidden;
+    /* VIDEO CARD */
+    .card{
+      border-radius:22px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.03);
-      box-shadow:0 18px 55px rgba(0,0,0,.35);
-      transition:.25s ease;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transition:.2s ease;
     }
-    .video:hover{
-      transform:translateY(-6px);
-      box-shadow:0 26px 80px rgba(0,0,0,.6), 0 0 40px rgba(120,180,255,.12);
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 30px 90px rgba(120,180,255,.15);
     }
 
-    .media{
-      max-width:560px;
-      margin:16px auto 0;
-      padding:0 16px;
-    }
     .wrap16x9{
       position:relative;
       aspect-ratio:16/9;
-      border-radius:14px;
-      overflow:hidden;
       background:#000;
+      cursor:pointer;
     }
-    .wrap16x9 iframe{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      border:0;
-    }
+
     .thumb{
-      position:absolute;
-      inset:0;
       width:100%;
       height:100%;
       object-fit:cover;
-      cursor:pointer;
+      display:block;
     }
 
     .grain{
       position:absolute;
-      inset:-20%;
-      opacity:.12;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-      mix-blend-mode:overlay;
+      inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
       pointer-events:none;
     }
 
@@ -152,26 +163,28 @@
       inset:0;
       display:grid;
       place-items:center;
-      background:linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.15));
-      cursor:pointer;
     }
-    .btn{
-      width:64px; height:64px;
+    .play div{
+      width:56px;
+      height:56px;
       border-radius:50%;
-      background:rgba(0,0,0,.4);
-      border:1px solid rgba(255,255,255,.25);
-      display:grid; place-items:center;
+      background:rgba(0,0,0,.55);
+      display:grid;
+      place-items:center;
     }
-    .btn svg{width:22px;height:22px;fill:#fff;margin-left:2px;}
+    .play svg{width:22px;height:22px;fill:#fff}
 
-    .meta{padding:14px 18px 18px;}
-    .title{margin:0;font-size:14px;font-weight:700;}
+    .meta{
+      padding:12px 14px;
+      font-size:13px;
+      font-weight:500;
+    }
 
     footer{
-      margin-top:26px;
+      margin-top:30px;
+      text-align:center;
       font-size:12px;
       color:rgba(255,255,255,.55);
-      text-align:center;
     }
   </style>
 </head>
@@ -192,115 +205,63 @@
 </header>
 
 <main class="wrap">
-  <section class="hero">
-    <p class="kicker">Video</p>
-    <h1>Video work.</h1>
 
-    <div class="grid">
+  <h1>Video work.</h1>
 
-      <!-- Brady Bunch (2025) -->
-      <article class="card">
-        <div class="video js-yt" data-id="MNQa8dPwRIQ">
-          <div class="media">
-            <div class="wrap16x9">
-              <img class="thumb" src="https://i.ytimg.com/vi/MNQa8dPwRIQ/hqdefault.jpg">
-              <div class="grain"></div>
-              <div class="play"><div class="btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            </div>
-          </div>
-          <div class="meta"><p class="title">Brady Bunch — UML Media Services (2025)</p></div>
-        </div>
-      </article>
-
-      <!-- Ritmo Canela (2025) -->
-      <article class="card">
-        <div class="video js-yt" data-id="1QMiZMkOpcE">
-          <div class="media">
-            <div class="wrap16x9">
-              <img class="thumb" src="https://i.ytimg.com/vi/1QMiZMkOpcE/hqdefault.jpg">
-              <div class="grain"></div>
-              <div class="play"><div class="btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            </div>
-          </div>
-          <div class="meta"><p class="title">Ritmo Canela Academy First Recap (2025)</p></div>
-        </div>
-      </article>
-
-      <!-- Gender Reveal (2025) -->
-      <article class="card">
-        <div class="video js-yt" data-id="v_2hdFGGIRo">
-          <div class="media">
-            <div class="wrap16x9">
-              <img class="thumb" src="https://i.ytimg.com/vi/v_2hdFGGIRo/hqdefault.jpg">
-              <div class="grain"></div>
-              <div class="play"><div class="btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            </div>
-          </div>
-          <div class="meta"><p class="title">Gender Reveal (2025)</p></div>
-        </div>
-      </article>
-
-      <!-- Gold Athletics (2024) -->
-      <article class="card">
-        <div class="video js-yt" data-id="u3Gr4A3kY0M">
-          <div class="media">
-            <div class="wrap16x9">
-              <img class="thumb" src="https://i.ytimg.com/vi/u3Gr4A3kY0M/hqdefault.jpg">
-              <div class="grain"></div>
-              <div class="play"><div class="btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            </div>
-          </div>
-          <div class="meta"><p class="title">Gold Athletics YouTube Promo (Unofficial) (2024)</p></div>
-        </div>
-      </article>
-
-      <!-- Aarons Presents (2023) -->
-      <article class="card">
-        <div class="video js-yt" data-id="EzfLch2vMGM">
-          <div class="media">
-            <div class="wrap16x9">
-              <img class="thumb" src="https://i.ytimg.com/vi/EzfLch2vMGM/hqdefault.jpg">
-              <div class="grain"></div>
-              <div class="play"><div class="btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            </div>
-          </div>
-          <div class="meta"><p class="title">Aarons Presents Promo Video (2023)</p></div>
-        </div>
-      </article>
-
-      <!-- Illusion of Love (2023) -->
-      <article class="card">
-        <div class="video js-yt" data-id="VI_ZZvkooyw">
-          <div class="media">
-            <div class="wrap16x9">
-              <img class="thumb" src="https://i.ytimg.com/vi/VI_ZZvkooyw/hqdefault.jpg">
-              <div class="grain"></div>
-              <div class="play"><div class="btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            </div>
-          </div>
-          <div class="meta"><p class="title">The Illusion of Love | A Cinematic Short Film (2023)</p></div>
-        </div>
-      </article>
-
+  <!-- BURNOUT FEATURE -->
+  <section class="burnout">
+    <div>
+      <h2>Burnout</h2>
+      <p>A reverse-told short film exploring addiction, memory, and emotional collapse.</p>
+      <a href="/work/burnout/">View project →</a>
     </div>
-
-    <footer>© <span id="y"></span> Angel Disla</footer>
+    <div class="wrap16x9">
+      <iframe src="https://www.youtube-nocookie.com/embed/U6Z-hncUcVA?rel=0&modestbranding=1"
+        allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+    </div>
   </section>
+
+  <!-- VIDEO GRID -->
+  <section class="grid" id="videos"></section>
+
+  <footer>© <span id="y"></span> Angel Disla</footer>
 </main>
 
 <script>
-  document.getElementById("y").textContent = new Date().getFullYear();
+document.getElementById("y").textContent = new Date().getFullYear();
 
-  document.querySelectorAll(".js-yt").forEach(card=>{
-    card.addEventListener("click",()=>{
-      if(card.dataset.loaded) return;
-      card.dataset.loaded = 1;
-      const id = card.dataset.id;
-      card.querySelector(".wrap16x9").innerHTML = `
-        <iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1"
-          allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-    });
-  });
+const videos = [
+  ["0k75PybeW5s","Minds With Purpose Commercial (2025)"],
+  ["MNQa8dPwRIQ","Brady Bunch — UML Media Services (2025)"],
+  ["1QMiZMkOpcE","Ritmo Canela Academy First Recap (2025)"],
+  ["EzfLch2vMGM","Aarons Presents Promo Video (2023)"],
+  ["U7f4xLae_rk","Is Commuting To UML The Right Option For You? (2024)"],
+  ["wAyCnb4ySaM","Burnout Teaser (2024)"],
+  ["u3Gr4A3kY0M","Gold Athletics YouTube Promo (Unofficial) (2024)"],
+  ["n6hEstlTQ6s","Within Without (2023)"],
+  ["VI_ZZvkooyw","The Illusion of Love | A Cinematic Short Film (2023)"]
+];
+
+const grid = document.getElementById("videos");
+
+videos.forEach(([id,title])=>{
+  const el = document.createElement("article");
+  el.className="card";
+  el.innerHTML = `
+    <div class="wrap16x9" data-id="${id}">
+      <img class="thumb" loading="lazy" src="https://i.ytimg.com/vi/${id}/hqdefault.jpg">
+      <div class="grain"></div>
+      <div class="play"><div><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+    </div>
+    <div class="meta">${title}</div>
+  `;
+  el.querySelector(".wrap16x9").onclick=()=>{
+    el.querySelector(".wrap16x9").innerHTML =
+      `<iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0&autoplay=1&modestbranding=1"
+        allowfullscreen style="width:100%;height:100%;border:0"></iframe>`;
+  };
+  grid.appendChild(el);
+});
 </script>
 
 </body>
