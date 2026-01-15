@@ -77,7 +77,7 @@
     .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 70px;}
     h1{margin:0 0 18px; font-size:36px; letter-spacing:-.02em;}
 
-    /* BURNOUT FEATURE (SMALLER) */
+    /* BURNOUT FEATURE */
     .burnout{
       padding:18px 20px;
       border-radius:24px;
@@ -109,6 +109,7 @@
       color:#fff;
       opacity:.85;
       white-space:nowrap;
+      text-decoration:none;
     }
 
     /* GRID */
@@ -155,6 +156,7 @@
       inset:0;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
       pointer-events:none;
+      mix-blend-mode: overlay;
     }
 
     .play{
@@ -170,22 +172,98 @@
       background:rgba(0,0,0,.55);
       display:grid;
       place-items:center;
+      border:1px solid rgba(255,255,255,.10);
+      transition:.18s ease;
+    }
+    .card:hover .play div{
+      transform:translateY(-1px);
+      box-shadow:0 0 0 6px rgba(255,255,255,.05);
     }
     .play svg{width:22px;height:22px;fill:#fff}
 
     .meta{
       padding:12px 14px 14px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
     }
     .title{
       font-size:13px;
-      font-weight:500;
+      font-weight:520;
+      line-height:1.35;
     }
-    .role{
-      margin-top:4px;
+
+    /* ROLE ICONS */
+    .roles{
+      display:flex;
+      gap:8px;
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+    .ico{
+      width:30px;
+      height:30px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      display:grid;
+      place-items:center;
+      backdrop-filter: blur(10px);
+      transition:.18s ease;
+      position:relative;
+    }
+    .card:hover .ico{
+      border-color: rgba(255,255,255,.20);
+      background: rgba(255,255,255,.06);
+    }
+    .ico svg{
+      width:16px;
+      height:16px;
+      fill:rgba(255,255,255,.86);
+      opacity:.95;
+    }
+    /* tooltip */
+    .ico::after{
+      content: attr(data-tip);
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      bottom:calc(100% + 10px);
+      white-space:nowrap;
       font-size:11px;
-      color:var(--muted);
-      letter-spacing:.06em;
+      letter-spacing:.08em;
       text-transform:uppercase;
+      color:rgba(255,255,255,.85);
+      background: rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.12);
+      padding:8px 10px;
+      border-radius:999px;
+      opacity:0;
+      pointer-events:none;
+      transition:.15s ease;
+      backdrop-filter: blur(10px);
+    }
+    .ico::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      bottom:calc(100% + 4px);
+      width:10px;
+      height:10px;
+      background: rgba(0,0,0,.55);
+      border-left:1px solid rgba(255,255,255,.12);
+      border-top:1px solid rgba(255,255,255,.12);
+      transform: translateX(-50%) rotate(45deg);
+      opacity:0;
+      transition:.15s ease;
+      pointer-events:none;
+      backdrop-filter: blur(10px);
+    }
+    .ico:hover::after,
+    .ico:hover::before{
+      opacity:1;
     }
 
     footer{
@@ -234,39 +312,93 @@
 <script>
 document.getElementById("y").textContent = new Date().getFullYear();
 
+/*
+ROLE ICON KEY:
+DIR  = Director (clapboard)
+CAM  = Cinematographer (camera)
+EDIT = Editor (scissors)
+SND  = Sound (waveform)
+*/
+
+const ICONS = {
+  DIR: {
+    tip: "Director",
+    svg: `<svg viewBox="0 0 24 24"><path d="M4 6h16v4H4V6zm0 6h16v10H4V12zm2 2v6h12v-6H6zm1-7 2 2 2-2 2 2 2-2 2 2 2-2" /></svg>`
+  },
+  CAM: {
+    tip: "Cinematographer",
+    svg: `<svg viewBox="0 0 24 24"><path d="M4 7h9l2-2h3l2 2h2v12H4V7zm4 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>`
+  },
+  EDIT: {
+    tip: "Editor",
+    svg: `<svg viewBox="0 0 24 24"><path d="M9 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm6 4a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM7.5 12.5 16 21l1.5-1.5L9 11 7.5 12.5z"/></svg>`
+  },
+  SND: {
+    tip: "Sound",
+    svg: `<svg viewBox="0 0 24 24"><path d="M5 10h2v4H5v-4zm4-3h2v10H9V7zm4 2h2v6h-2V9zm4-4h2v14h-2V5z"/></svg>`
+  }
+};
+
+function roleIcons(roleList){
+  if(!roleList || roleList.length === 0) return "";
+  return `
+    <div class="roles">
+      ${roleList.map(r => `
+        <span class="ico" data-tip="${ICONS[r].tip}">
+          ${ICONS[r].svg}
+        </span>
+      `).join("")}
+    </div>
+  `;
+}
+
+// Ordered most recent -> oldest
 const videos = [
-  ["0k75PybeW5s","Minds With Purpose Commercial (2025)","Director · Cinematographer · Editor"],
-  ["MNQa8dPwRIQ","Brady Bunch — UML Media Services (2025)","Director · Cinematographer · Editor"],
-  ["1QMiZMkOpcE","Ritmo Canela Academy First Recap (2025)","Director · Cinematographer · Editor"],
-  ["EzfLch2vMGM","Aarons Presents Promo Video (2023)","Sound Recordist · Cinematographer · Editor"],
-  ["U7f4xLae_rk","Is Commuting To UML The Right Option For You? (2024)","Director · Cinematographer · Editor"],
-  ["wAyCnb4ySaM","Burnout Teaser (2024)","Director · Cinematographer · Editor"],
-  ["u3Gr4A3kY0M","Gold Athletics YouTube Promo (Unofficial) (2024)","Director · Cinematographer · Editor"],
-  ["n6hEstlTQ6s","Within Without (2023)",""],
-  ["VI_ZZvkooyw","The Illusion of Love | A Cinematic Short Film (2023)","Director · Cinematographer · Editor"]
+  // 2025
+  ["0k75PybeW5s","Minds With Purpose Commercial (2025)",["DIR","CAM","EDIT"]],
+  ["MNQa8dPwRIQ","Brady Bunch — UML Media Services (2025)",["DIR","CAM","EDIT"]],
+  ["t6ETSJhgTy0","Ritmo Canela Academy Showcase Recap (2025)",["CAM","EDIT"]],
+  ["1QMiZMkOpcE","Ritmo Canela Academy First Recap (2025)",["CAM","EDIT"]],
+
+  // 2024
+  ["U7f4xLae_rk","Is Commuting To UML The Right Option For You? (Short Documentary) (2024)",["DIR","CAM","EDIT"]],
+  ["wAyCnb4ySaM","Burnout Teaser (2024)",["DIR","CAM","EDIT"]],
+  ["u3Gr4A3kY0M","Gold Athletics YouTube Promo (Unofficial) (2024)",["EDIT"]],
+
+  // 2023
+  ["VI_ZZvkooyw","The Illusion of Love | A Cinematic Short Film (2023)",["DIR","CAM","EDIT"]],
+  ["EzfLch2vMGM","Aarons Presents Promo Video (2023)",["SND","CAM","EDIT"]],
+  ["n6hEstlTQ6s","Within/Without (2023)",["CAM"]],
 ];
 
 const grid = document.getElementById("videos");
 
-videos.forEach(([id,title,role])=>{
+videos.forEach(([id,title,roles])=>{
   const el = document.createElement("article");
   el.className="card";
   el.innerHTML = `
     <div class="wrap16x9" data-id="${id}">
-      <img class="thumb" loading="lazy" src="https://i.ytimg.com/vi/${id}/hqdefault.jpg">
+      <img class="thumb" loading="lazy" src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="${title}">
       <div class="grain"></div>
       <div class="play"><div><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
     </div>
     <div class="meta">
       <div class="title">${title}</div>
-      ${role ? `<div class="role">${role}</div>` : ``}
+      ${roleIcons(roles)}
     </div>
   `;
-  el.querySelector(".wrap16x9").onclick=()=>{
-    el.querySelector(".wrap16x9").innerHTML =
-      `<iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0&autoplay=1&modestbranding=1"
-        allowfullscreen style="width:100%;height:100%;border:0"></iframe>`;
+
+  const wrap = el.querySelector(".wrap16x9");
+  wrap.onclick = () => {
+    wrap.innerHTML =
+      `<iframe
+        src="https://www.youtube-nocookie.com/embed/${id}?rel=0&autoplay=1&modestbranding=1&iv_load_policy=3&playsinline=1"
+        title="${title}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>`;
   };
+
   grid.appendChild(el);
 });
 </script>
