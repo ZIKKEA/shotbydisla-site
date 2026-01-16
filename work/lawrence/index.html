@@ -1,14 +1,9 @@
-a<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Lawrence — Then / Now</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- (Helps some browsers/proxies not hang onto old HTML) -->
-  <meta http-equiv="Cache-Control" content="no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
 
   <link rel="icon" href="../../assets/favicon.ico">
   <link rel="stylesheet" href="../../assets/global.css">
@@ -75,25 +70,14 @@ a<!doctype html>
       grid-template-columns: repeat(12, 1fr);
       gap:12px;
     }
-    @media (max-width:900px){ .grid{grid-template-columns: repeat(6,1fr);} }
-    @media (max-width:640px){ .grid{grid-template-columns: repeat(1,1fr);} }
-    /* Each before/after pair = grid item */
-.pair{
-  grid-column: span 4;
-}
 
-@media (max-width:900px){
-  .pair{ grid-column: span 6; }
-}
-
-@media (max-width:640px){
-  .pair{ grid-column: span 12; }
-}
-
+    /* Each before/after pair = grid item (fixes desktop layout) */
+    .pair{ grid-column: span 4; }
+    @media (max-width:900px){ .pair{ grid-column: span 6; } }
+    @media (max-width:640px){ .pair{ grid-column: span 12; } }
 
     /* Slider Card */
     .ba{
-      grid-column: span 4;
       border-radius: 20px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.35);
@@ -102,19 +86,18 @@ a<!doctype html>
       position:relative;
       aspect-ratio: 16/10;
       min-height: 220px;
+      cursor: ew-resize;
+      user-select:none;
       touch-action: pan-y;
+      --pos: 50%;
     }
-    @media (max-width:900px){ .ba{grid-column: span 6;} }
-    @media (max-width:640px){ .ba{grid-column: span 1;} }
 
     .ba .img{
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit:cover;
       display:block;
-      user-select:none;
       -webkit-user-drag:none;
-      pointer-events:none;
     }
 
     /* top image is clipped by --pos */
@@ -151,10 +134,10 @@ a<!doctype html>
     }
     .knob svg{width:18px;height:18px; fill:#fff; opacity:.9}
 
-    /* labels (FIX: prevent "Now" getting clipped) */
+    /* labels */
     .lab{
       position:absolute;
-      bottom:12px;
+      bottom:10px;
       font-size:11px;
       letter-spacing:.14em;
       text-transform:uppercase;
@@ -165,11 +148,16 @@ a<!doctype html>
       border-radius:999px;
       backdrop-filter: blur(10px);
       user-select:none;
-      max-width: calc(100% - 28px);
+      z-index:5;
+      max-width: calc(100% - 20px);
       white-space: nowrap;
     }
-    .lab.then{left:14px}
-    .lab.now{right:14px}
+    .lab.then{left:10px}
+    .lab.now{
+      right:10px;
+      /* keeps it from being visually clipped near rounded edges */
+      margin-right:0;
+    }
 
     /* title under each slider */
     .caption{
@@ -203,7 +191,7 @@ a<!doctype html>
         <a class="active" href="./">Lawrence</a>
         <a href="../../video/">Video</a>
         <a href="../../photo/">Photo</a>
-        <a href="/contact/">Contact</a>
+        <a href="mailto:angeldisla65@gmail.com">Contact</a>
       </div>
     </div>
   </div>
@@ -223,8 +211,8 @@ a<!doctype html>
       <div class="grid">
 
         <!-- Pair 01 -->
-        <div>
-          <div class="ba" data-then="./assets/pairs/01-then.jpg" data-now="./assets/pairs/01-now.jpg" style="--pos:50%">
+        <div class="pair">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/01-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/01-now.jpg" alt="Now">
@@ -240,8 +228,8 @@ a<!doctype html>
         </div>
 
         <!-- Pair 02 -->
-        <div>
-          <div class="ba" data-then="./assets/pairs/02-then.jpg" data-now="./assets/pairs/02-now.jpg" style="--pos:50%">
+        <div class="pair">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/02-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/02-now.jpg" alt="Now">
@@ -257,8 +245,8 @@ a<!doctype html>
         </div>
 
         <!-- Pair 03 -->
-        <div>
-          <div class="ba" data-then="./assets/pairs/03-then.jpg" data-now="./assets/pairs/03-now.jpg" style="--pos:50%">
+        <div class="pair">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/03-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/03-now.jpg" alt="Now">
@@ -274,8 +262,8 @@ a<!doctype html>
         </div>
 
         <!-- Pair 04 -->
-        <div>
-          <div class="ba" data-then="./assets/pairs/04-then.jpg" data-now="./assets/pairs/04-now.jpg" style="--pos:50%">
+        <div class="pair">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/04-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/04-now.jpg" alt="Now">
@@ -287,12 +275,12 @@ a<!doctype html>
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">700 Essex St</div>
+          <div class="caption">St. Mary's Church, Hampshire at Haverhill Street</div>
         </div>
 
         <!-- Pair 05 -->
-        <div>
-          <div class="ba" data-then="./assets/pairs/05-then.jpg" data-now="./assets/pairs/05-now.jpg" style="--pos:50%">
+        <div class="pair">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/05-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/05-now.jpg" alt="Now">
@@ -308,8 +296,8 @@ a<!doctype html>
         </div>
 
         <!-- Pair 06 -->
-        <div>
-          <div class="ba" data-then="./assets/pairs/06-then.jpg" data-now="./assets/pairs/06-now.jpg" style="--pos:50%">
+        <div class="pair">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/06-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/06-now.jpg" alt="Now">
@@ -321,7 +309,7 @@ a<!doctype html>
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">St. Mary's Church, Hampshire at Haverhill Street</div>
+          <div class="caption">700 Essex St</div>
         </div>
 
       </div>
@@ -343,17 +331,14 @@ a<!doctype html>
     document.querySelectorAll(".ba").forEach((el)=>{
       let down = false;
 
-      // mouse (only when pressed on this slider)
+      // mouse
       el.addEventListener("mousedown", (e)=>{
         down = true;
         setPos(el, e.clientX);
       });
-
       window.addEventListener("mousemove", (e)=>{
-        if(!down) return;
-        setPos(el, e.clientX);
+        if(down) setPos(el, e.clientX);
       });
-
       window.addEventListener("mouseup", ()=>{
         down = false;
       });
@@ -363,20 +348,15 @@ a<!doctype html>
         down = true;
         setPos(el, e.touches[0].clientX);
       }, {passive:true});
-
       el.addEventListener("touchmove", (e)=>{
-        if(!down) return;
-        setPos(el, e.touches[0].clientX);
+        if(down) setPos(el, e.touches[0].clientX);
       }, {passive:true});
-
       el.addEventListener("touchend", ()=>{
         down = false;
-      }, {passive:true});
+      });
 
       // click-to-jump
-      el.addEventListener("click", (e)=>{
-        setPos(el, e.clientX);
-      });
+      el.addEventListener("click", (e)=> setPos(el, e.clientX));
     });
   </script>
 
