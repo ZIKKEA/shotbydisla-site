@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Video — Angel Disla</title>
-  <meta name="description" content="Video work by Angel Disla — narrative films, documentaries, and client pieces." />
+  <meta name="description" content="Video work by Angel Disla — narrative, documentary, client, and creative pieces." />
   <link rel="icon" href="/favicon.ico" />
 
   <style>
@@ -327,6 +327,7 @@
     <button class="pill" data-filter="narrative" role="tab" aria-selected="false">Narrative</button>
     <button class="pill" data-filter="documentary" role="tab" aria-selected="false">Documentary</button>
     <button class="pill" data-filter="client" role="tab" aria-selected="false">Client</button>
+    <button class="pill" data-filter="creative" role="tab" aria-selected="false">Creative</button>
     <div class="count" id="count">—</div>
   </div>
 
@@ -340,7 +341,7 @@
   document.getElementById("y").textContent = new Date().getFullYear();
 
   // ORDER: most recent -> oldest
-  // type: narrative | documentary | client
+  // type: narrative | documentary | client | creative
   const videos = [
     // 2025
     { id:"0k75PybeW5s", title:"Minds With Purpose Commercial (2025)", roles:"Director · Cinematographer · Editor", type:"client" },
@@ -348,6 +349,7 @@
     { id:"t6ETSJhgTy0", title:"Ritmo Canela Academy Showcase Recap (2025)", roles:"Cinematographer · Editor", type:"client" },
     { id:"1QMiZMkOpcE", title:"Ritmo Canela Academy First Recap (2025)", roles:"Cinematographer · Editor", type:"client" },
     { id:"v_2hdFGGIRo", title:"Gender Reveal (2025)", roles:"Director · Cinematographer · Editor", type:"client" },
+    { id:"gWw_ueBN8XI", title:"North Andover, MA (but cinematic) (2025)", roles:"Director · Cinematographer · Editor", type:"creative" },
 
     // 2024
     { id:"U7f4xLae_rk", title:"Is Commuting To UML The Right Option For You? (Short Documentary) (2024)", roles:"Director · Cinematographer · Editor", type:"documentary" },
@@ -383,6 +385,15 @@
     `;
   }
 
+  function niceLabel(filter){
+    if(filter === "all") return "All";
+    if(filter === "narrative") return "Narrative";
+    if(filter === "documentary") return "Documentary";
+    if(filter === "client") return "Client";
+    if(filter === "creative") return "Creative";
+    return filter;
+  }
+
   function render(filter){
     grid.innerHTML = "";
     const list = (filter === "all") ? videos : videos.filter(v => v.type === filter);
@@ -391,13 +402,12 @@
       grid.insertAdjacentHTML("beforeend", cardHTML(v));
     });
 
-    // attach click handlers to lazy-load iframe only when clicked
+    // lazy-load iframe only on click (keeps player full size)
     grid.querySelectorAll(".wrap16x9").forEach(wrap => {
       wrap.addEventListener("click", () => {
         const id = wrap.dataset.id;
         const title = wrap.parentElement.querySelector(".title").textContent;
 
-        // keep the iframe full size (fixes “tiny player” issue)
         wrap.innerHTML = `
           <iframe
             src="https://www.youtube-nocookie.com/embed/${id}?rel=0&autoplay=1&modestbranding=1&iv_load_policy=3&playsinline=1"
@@ -407,10 +417,10 @@
             style="position:absolute;inset:0;width:100%;height:100%;border:0">
           </iframe>
         `;
-      });
+      }, { once:true });
     });
 
-    const label = (filter === "all") ? "All" : filter.charAt(0).toUpperCase() + filter.slice(1);
+    const label = niceLabel(filter);
     count.textContent = `${label} · ${list.length} video${list.length===1?"":"s"}`;
   }
 
