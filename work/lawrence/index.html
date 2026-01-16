@@ -5,8 +5,13 @@
   <title>Lawrence — Then / Now</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" href="/assets/favicon.ico">
-  <link rel="stylesheet" href="/assets/global.css">
+  <!-- (Helps some browsers/proxies not hang onto old HTML) -->
+  <meta http-equiv="Cache-Control" content="no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <link rel="icon" href="../../assets/favicon.ico">
+  <link rel="stylesheet" href="../../assets/global.css">
 
   <style>
     :root{
@@ -16,6 +21,7 @@
       --muted:rgba(255,255,255,.70);
       --line:rgba(255,255,255,.12);
       --shadow: 0 26px 90px rgba(0,0,0,.68);
+      --r:22px;
       --max:1100px;
     }
     *{box-sizing:border-box}
@@ -78,15 +84,12 @@
       border-radius: 20px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.35);
-      overflow:hidden; /* keep corners clean */
+      overflow:hidden;
       box-shadow: 0 18px 60px rgba(0,0,0,.55);
       position:relative;
       aspect-ratio: 16/10;
       min-height: 220px;
-
-      touch-action:none;
-      user-select:none;
-      -webkit-user-select:none;
+      touch-action: pan-y;
     }
     @media (max-width:900px){ .ba{grid-column: span 6;} }
     @media (max-width:640px){ .ba{grid-column: span 1;} }
@@ -98,6 +101,7 @@
       display:block;
       user-select:none;
       -webkit-user-drag:none;
+      pointer-events:none;
     }
 
     /* top image is clipped by --pos */
@@ -116,7 +120,6 @@
       transform: translateX(-1px);
       box-shadow: 0 0 0 1px rgba(0,0,0,.35);
       pointer-events:none;
-      z-index:4;
     }
     .knob{
       position:absolute;
@@ -132,31 +135,30 @@
       place-items:center;
       pointer-events:none;
       box-shadow: 0 18px 60px rgba(0,0,0,.55);
-      z-index:5;
     }
     .knob svg{width:18px;height:18px; fill:#fff; opacity:.9}
 
-    /* labels — FIX: safe inset so "NOW" never clips */
+    /* labels (FIX: prevent "Now" getting clipped) */
     .lab{
       position:absolute;
-      bottom:14px;
-      font-size:10px;
+      bottom:12px;
+      font-size:11px;
       letter-spacing:.14em;
       text-transform:uppercase;
-      color: rgba(255,255,255,.78);
-      background: rgba(0,0,0,.40);
-      border:1px solid rgba(255,255,255,.16);
-      padding:6px 10px;
+      color: rgba(255,255,255,.70);
+      background: rgba(0,0,0,.32);
+      border:1px solid rgba(255,255,255,.12);
+      padding:7px 10px;
       border-radius:999px;
       backdrop-filter: blur(10px);
       user-select:none;
-      white-space:nowrap;
-      z-index:6;
+      max-width: calc(100% - 28px);
+      white-space: nowrap;
     }
     .lab.then{left:14px}
     .lab.now{right:14px}
 
-    /* captions */
+    /* title under each slider */
     .caption{
       margin-top:10px;
       font-size:12px;
@@ -173,15 +175,6 @@
       letter-spacing:.08em;
       text-transform:uppercase;
     }
-
-    /* tiny debug stamp so you can confirm the deploy updated */
-    .stamp{
-      margin-top:10px;
-      font-size:11px;
-      color:rgba(255,255,255,.45);
-      letter-spacing:.10em;
-      text-transform:uppercase;
-    }
   </style>
 </head>
 
@@ -190,13 +183,13 @@
   <!-- GLOBAL NAV -->
   <div class="top">
     <div class="topInner" style="max-width:1100px;">
-      <a class="brand" href="/">Angel Disla</a>
+      <a class="brand" href="../../index.html">Angel Disla</a>
       <div class="nav">
-        <a href="/">Home</a>
-        <a href="/work/">Work</a>
-        <a class="active" href="/work/lawrence/">Lawrence</a>
-        <a href="/video/">Video</a>
-        <a href="/photo/">Photo</a>
+        <a href="../../index.html">Home</a>
+        <a href="../../work/">Work</a>
+        <a class="active" href="./">Lawrence</a>
+        <a href="../../video/">Video</a>
+        <a href="../../photo/">Photo</a>
         <a href="/contact/">Contact</a>
       </div>
     </div>
@@ -212,21 +205,17 @@
           A then/now archival series comparing historic photographs with present-day frames across Lawrence, Massachusetts —
           built with the Lawrence History Center archive.
         </p>
-        <div class="stamp">updated: 2026-01-16</div>
       </div>
 
       <div class="grid">
 
-        <!-- IMPORTANT:
-             Using ABSOLUTE paths and a cache-bust (?v=20260116) so you see changes immediately.
-             Your real folder is: /work/lawrence/assets/pairs/
-        -->
-
         <!-- Pair 01 -->
         <div>
-          <div class="ba" data-pair style="--pos:50%">
-            <img class="img" src="/work/lawrence/assets/pairs/01-then.jpg?v=20260116" alt="Then">
-            <div class="topWrap"><img class="img" src="/work/lawrence/assets/pairs/01-now.jpg?v=20260116" alt="Now"></div>
+          <div class="ba" data-then="./assets/pairs/01-then.jpg" data-now="./assets/pairs/01-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/01-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/01-now.jpg" alt="Now">
+            </div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -239,9 +228,11 @@
 
         <!-- Pair 02 -->
         <div>
-          <div class="ba" data-pair style="--pos:50%">
-            <img class="img" src="/work/lawrence/assets/pairs/02-then.jpg?v=20260116" alt="Then">
-            <div class="topWrap"><img class="img" src="/work/lawrence/assets/pairs/02-now.jpg?v=20260116" alt="Now"></div>
+          <div class="ba" data-then="./assets/pairs/02-then.jpg" data-now="./assets/pairs/02-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/02-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/02-now.jpg" alt="Now">
+            </div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -254,9 +245,11 @@
 
         <!-- Pair 03 -->
         <div>
-          <div class="ba" data-pair style="--pos:50%">
-            <img class="img" src="/work/lawrence/assets/pairs/03-then.jpg?v=20260116" alt="Then">
-            <div class="topWrap"><img class="img" src="/work/lawrence/assets/pairs/03-now.jpg?v=20260116" alt="Now"></div>
+          <div class="ba" data-then="./assets/pairs/03-then.jpg" data-now="./assets/pairs/03-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/03-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/03-now.jpg" alt="Now">
+            </div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -269,9 +262,11 @@
 
         <!-- Pair 04 -->
         <div>
-          <div class="ba" data-pair style="--pos:50%">
-            <img class="img" src="/work/lawrence/assets/pairs/04-then.jpg?v=20260116" alt="Then">
-            <div class="topWrap"><img class="img" src="/work/lawrence/assets/pairs/04-now.jpg?v=20260116" alt="Now"></div>
+          <div class="ba" data-then="./assets/pairs/04-then.jpg" data-now="./assets/pairs/04-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/04-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/04-now.jpg" alt="Now">
+            </div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -279,14 +274,16 @@
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">St. Mary’s Church, Hampshire at Haverhill Street</div>
+          <div class="caption">St. Mary's Church, Hampshire at Haverhill Street</div>
         </div>
 
         <!-- Pair 05 -->
         <div>
-          <div class="ba" data-pair style="--pos:50%">
-            <img class="img" src="/work/lawrence/assets/pairs/05-then.jpg?v=20260116" alt="Then">
-            <div class="topWrap"><img class="img" src="/work/lawrence/assets/pairs/05-now.jpg?v=20260116" alt="Now"></div>
+          <div class="ba" data-then="./assets/pairs/05-then.jpg" data-now="./assets/pairs/05-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/05-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/05-now.jpg" alt="Now">
+            </div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -299,9 +296,11 @@
 
         <!-- Pair 06 -->
         <div>
-          <div class="ba" data-pair style="--pos:50%">
-            <img class="img" src="/work/lawrence/assets/pairs/06-then.jpg?v=20260116" alt="Then">
-            <div class="topWrap"><img class="img" src="/work/lawrence/assets/pairs/06-now.jpg?v=20260116" alt="Now"></div>
+          <div class="ba" data-then="./assets/pairs/06-then.jpg" data-now="./assets/pairs/06-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/06-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/06-now.jpg" alt="Now">
+            </div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -328,26 +327,43 @@
       el.style.setProperty("--pos", pct + "%");
     }
 
-    // Pointer events = consistent drag on mouse + touch
-    document.querySelectorAll(".ba[data-pair]").forEach((el)=>{
-      let dragging = false;
+    document.querySelectorAll(".ba").forEach((el)=>{
+      let down = false;
 
-      el.addEventListener("pointerdown", (e)=>{
-        dragging = true;
-        el.setPointerCapture(e.pointerId);
+      // mouse (only when pressed on this slider)
+      el.addEventListener("mousedown", (e)=>{
+        down = true;
         setPos(el, e.clientX);
       });
 
-      el.addEventListener("pointermove", (e)=>{
-        if(!dragging) return;
+      window.addEventListener("mousemove", (e)=>{
+        if(!down) return;
         setPos(el, e.clientX);
       });
 
-      el.addEventListener("pointerup", ()=> dragging = false);
-      el.addEventListener("pointercancel", ()=> dragging = false);
+      window.addEventListener("mouseup", ()=>{
+        down = false;
+      });
+
+      // touch
+      el.addEventListener("touchstart", (e)=>{
+        down = true;
+        setPos(el, e.touches[0].clientX);
+      }, {passive:true});
+
+      el.addEventListener("touchmove", (e)=>{
+        if(!down) return;
+        setPos(el, e.touches[0].clientX);
+      }, {passive:true});
+
+      el.addEventListener("touchend", ()=>{
+        down = false;
+      }, {passive:true});
 
       // click-to-jump
-      el.addEventListener("click", (e)=> setPos(el, e.clientX));
+      el.addEventListener("click", (e)=>{
+        setPos(el, e.clientX);
+      });
     });
   </script>
 
