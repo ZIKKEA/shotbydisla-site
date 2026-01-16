@@ -202,6 +202,7 @@
       backdrop-filter: blur(10px);
       transition: transform .18s ease, border-color .18s ease, background .18s ease;
       will-change: transform;
+      min-width:0; /* important for wrapping */
     }
     .client:hover{
       transform: translateY(-2px);
@@ -211,6 +212,7 @@
     .client img{
       width:28px;
       height:28px;
+      flex: 0 0 28px;
       object-fit:contain;
       filter: grayscale(1) saturate(.8) brightness(.92) contrast(1.05);
       opacity:.88;
@@ -227,8 +229,31 @@
       color:rgba(255,255,255,.86);
       white-space:nowrap;
       transition: color .22s ease;
+      min-width:0;
     }
     .client:hover span{color:rgba(255,255,255,.94)}
+
+    /* ✅ MOBILE FIX: client pills */
+    @media (max-width: 560px){
+      .clients{
+        grid-template-columns: 1fr; /* single column */
+        gap: 12px;
+      }
+      .client{
+        width: 100%;
+        justify-content: flex-start;
+        padding: 14px 14px;
+      }
+      .client img{
+        width: 30px;
+        height: 30px;
+        flex: 0 0 30px;
+      }
+      .client span{
+        white-space: normal;     /* allow wrap */
+        line-height: 1.25;
+      }
+    }
 
     /* SCROLL REVEAL */
     .reveal{
