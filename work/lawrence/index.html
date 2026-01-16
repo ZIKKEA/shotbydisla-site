@@ -85,6 +85,7 @@
       min-height: 220px;
       touch-action:none;
       user-select:none;
+      -webkit-user-select:none;
     }
     @media (max-width:900px){ .ba{grid-column: span 6;} }
     @media (max-width:640px){ .ba{grid-column: span 1;} }
@@ -114,6 +115,7 @@
       transform: translateX(-1px);
       box-shadow: 0 0 0 1px rgba(0,0,0,.35);
       pointer-events:none;
+      z-index:4;
     }
     .knob{
       position:absolute;
@@ -129,25 +131,29 @@
       place-items:center;
       pointer-events:none;
       box-shadow: 0 18px 60px rgba(0,0,0,.55);
+      z-index:5;
     }
     .knob svg{width:18px;height:18px; fill:#fff; opacity:.9}
 
-    /* labels OUTSIDE clip layer */
+    /* labels */
     .lab{
       position:absolute;
-      bottom:10px;
+      bottom:12px;
       font-size:11px;
       letter-spacing:.14em;
       text-transform:uppercase;
       color: rgba(255,255,255,.72);
-      background: rgba(0,0,0,.32);
-      border:1px solid rgba(255,255,255,.12);
-      padding:6px 9px;
+      background: rgba(0,0,0,.34);
+      border:1px solid rgba(255,255,255,.14);
+      padding:6px 10px;
       border-radius:999px;
       backdrop-filter: blur(10px);
       user-select:none;
       white-space:nowrap;
-      z-index:5;
+      z-index:6;
+
+      /* keep safe from edge clipping */
+      max-width: calc(100% - 24px);
     }
     .lab.then{left:12px}
     .lab.now{right:12px}
@@ -202,64 +208,11 @@
 
       <div class="grid">
 
-        <!-- Pair 01 -->
+        <!-- Pair 01 (original set) -->
         <div>
-          <div class="ba" style="--pos:50%">
+          <div class="ba" data-pair style="--pos:50%">
             <img class="img" src="./assets/pairs/01-then.jpg" alt="Then">
-            <div class="topWrap">
-              <img class="img" src="./assets/pairs/01-now.jpg" alt="Now">
-            </div>
-            <div class="handle"></div>
-            <div class="knob" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
-            </div>
-            <div class="lab then">Then</div>
-            <div class="lab now">Now</div>
-          </div>
-          <div class="caption">St. Mary’s Church, Hampshire at Haverhill Street</div>
-        </div>
-
-        <!-- Pair 02 -->
-        <div>
-          <div class="ba" style="--pos:50%">
-            <img class="img" src="./assets/pairs/02-then.jpg" alt="Then">
-            <div class="topWrap">
-              <img class="img" src="./assets/pairs/02-now.jpg" alt="Now">
-            </div>
-            <div class="handle"></div>
-            <div class="knob" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
-            </div>
-            <div class="lab then">Then</div>
-            <div class="lab now">Now</div>
-          </div>
-          <div class="caption">Essex St</div>
-        </div>
-
-        <!-- Pair 03 -->
-        <div>
-          <div class="ba" style="--pos:50%">
-            <img class="img" src="./assets/pairs/03-then.jpg" alt="Then">
-            <div class="topWrap">
-              <img class="img" src="./assets/pairs/03-now.jpg" alt="Now">
-            </div>
-            <div class="handle"></div>
-            <div class="knob" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
-            </div>
-            <div class="lab then">Then</div>
-            <div class="lab now">Now</div>
-          </div>
-          <div class="caption">700 Essex St</div>
-        </div>
-
-        <!-- Pair 04 -->
-        <div>
-          <div class="ba" style="--pos:50%">
-            <img class="img" src="./assets/pairs/04-then.jpg" alt="Then">
-            <div class="topWrap">
-              <img class="img" src="./assets/pairs/04-now.jpg" alt="Now">
-            </div>
+            <div class="topWrap"><img class="img" src="./assets/pairs/01-now.jpg" alt="Now"></div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -270,13 +223,11 @@
           <div class="caption">Bolton-Emerson Market St, corner of Springfield</div>
         </div>
 
-        <!-- Pair 05 -->
+        <!-- Pair 02 (original set) -->
         <div>
-          <div class="ba" style="--pos:50%">
-            <img class="img" src="./assets/pairs/05-then.jpg" alt="Then">
-            <div class="topWrap">
-              <img class="img" src="./assets/pairs/05-now.jpg" alt="Now">
-            </div>
+          <div class="ba" data-pair style="--pos:50%">
+            <img class="img" src="./assets/pairs/02-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/02-now.jpg" alt="Now"></div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -287,13 +238,11 @@
           <div class="caption">Essex St and Appleton Way</div>
         </div>
 
-        <!-- Pair 06 -->
+        <!-- Pair 03 (original set) -->
         <div>
-          <div class="ba" style="--pos:50%">
-            <img class="img" src="./assets/pairs/06-then.jpg" alt="Then">
-            <div class="topWrap">
-              <img class="img" src="./assets/pairs/06-now.jpg" alt="Now">
-            </div>
+          <div class="ba" data-pair style="--pos:50%">
+            <img class="img" src="./assets/pairs/03-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/03-now.jpg" alt="Now"></div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
@@ -302,6 +251,51 @@
             <div class="lab now">Now</div>
           </div>
           <div class="caption">459 Essex St</div>
+        </div>
+
+        <!-- Pair 04 (new set) -->
+        <div>
+          <div class="ba" data-pair style="--pos:50%">
+            <img class="img" src="./assets/pairs/04-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/04-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">700 Essex St</div>
+        </div>
+
+        <!-- Pair 05 (new set) -->
+        <div>
+          <div class="ba" data-pair style="--pos:50%">
+            <img class="img" src="./assets/pairs/05-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/05-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">Essex St</div>
+        </div>
+
+        <!-- Pair 06 (new set) -->
+        <div>
+          <div class="ba" data-pair style="--pos:50%">
+            <img class="img" src="./assets/pairs/06-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/06-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">St. Mary’s Church, Hampshire at Haverhill Street</div>
         </div>
 
       </div>
@@ -320,7 +314,7 @@
       el.style.setProperty("--pos", pct + "%");
     }
 
-    document.querySelectorAll(".ba").forEach((el)=>{
+    document.querySelectorAll(".ba[data-pair]").forEach((el)=>{
       let dragging = false;
 
       el.addEventListener("pointerdown", (e)=>{
