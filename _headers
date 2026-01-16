@@ -1,0 +1,5 @@
+/work/lawrence/*
+  Cache-Control: no-store, must-revalidate
+
+/*.html
+  Cache-Control: no-store, must-revalidate
