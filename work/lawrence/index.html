@@ -21,7 +21,7 @@
     }
 
     *{box-sizing:border-box}
-
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       color:var(--fg);
@@ -31,14 +31,14 @@
         linear-gradient(180deg, var(--bg0), var(--bg1));
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       letter-spacing:.01em;
+      overflow-x:hidden;
     }
-
     a{color:inherit;text-decoration:none}
 
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:32px 22px 80px;
+      padding:32px 22px 88px;
     }
 
     .card{
@@ -50,10 +50,7 @@
       margin-top:24px;
     }
 
-    .pad{
-      padding:28px 28px 26px;
-    }
-
+    .pad{padding:28px 28px 26px;}
     .crumb{
       font-size:12px;
       color:rgba(255,255,255,.55);
@@ -61,14 +58,12 @@
       text-transform:uppercase;
       margin-bottom:12px;
     }
-
     h1{
       margin:0 0 10px;
       font-size: clamp(32px, 3.5vw, 46px);
       letter-spacing:-.03em;
       line-height:1.05;
     }
-
     .desc{
       margin:0;
       color:var(--muted);
@@ -77,30 +72,42 @@
       max-width:90ch;
     }
 
-    /* GRID — more breathing room */
+    /* =========================
+       GRID (layout guards)
+       ========================= */
     .grid{
-      padding:24px;
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:28px 22px; /* row gap / column gap */
+      display:grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      gap:28px 22px !important;
+      padding:24px !important;
+      width:100%;
     }
 
     .pair{
       grid-column: span 4;
+      min-width:0; /* prevents overflow weirdness */
     }
+    @media (max-width:900px){ .pair{grid-column: span 6;} }
+    @media (max-width:640px){ .pair{grid-column: span 12;} }
 
-    @media (max-width:900px){
-      .pair{ grid-column: span 6; }
+    /* Reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .65s ease, transform .65s ease;
+      transition-delay: var(--d, 0ms);
     }
+    .reveal.in{opacity:1; transform: translateY(0);}
 
-    @media (max-width:640px){
-      .pair{ grid-column: span 12; }
-    }
-
-    /* BEFORE / AFTER */
+    /* =========================
+       BEFORE / AFTER CARD
+       (height guards so it NEVER collapses)
+       ========================= */
     .ba{
       position:relative;
+      width:100%;
       aspect-ratio:16/10;
+      min-height:220px;              /* GUARANTEE visible on desktop */
       border-radius:22px;
       overflow:hidden;
       background:#000;
@@ -109,7 +116,21 @@
       --pos:50%;
       cursor: ew-resize;
       user-select:none;
+      isolation:isolate;
+      display:block;                 /* GUARANTEE visible */
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
+
+    /* Hover glow per pair */
+    .pair:hover .ba{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.22);
+      box-shadow:
+        0 18px 60px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.06),
+        0 0 42px rgba(120,180,255,.10);
+    }
+    .pair:hover .caption{color: rgba(255,255,255,.74);}
 
     .img{
       position:absolute;
@@ -118,6 +139,7 @@
       height:100%;
       object-fit:cover;
       -webkit-user-drag:none;
+      display:block;                 /* GUARANTEE */
     }
 
     .topWrap{
@@ -152,13 +174,7 @@
       box-shadow:0 16px 50px rgba(0,0,0,.6);
       pointer-events:none;
     }
-
-    .knob svg{
-      width:18px;
-      height:18px;
-      fill:#fff;
-      opacity:.9;
-    }
+    .knob svg{width:18px;height:18px;fill:#fff;opacity:.9;}
 
     .lab{
       position:absolute;
@@ -173,10 +189,11 @@
       border-radius:999px;
       backdrop-filter: blur(10px);
       pointer-events:none;
+      max-width:calc(100% - 24px);
+      white-space:nowrap;
     }
-
-    .lab.then{ left:12px; }
-    .lab.now{ right:12px; }
+    .lab.then{left:12px;}
+    .lab.now{right:12px;} /* not cut off because container has padding + max-width */
 
     .caption{
       margin-top:14px;
@@ -184,79 +201,388 @@
       font-size:12px;
       letter-spacing:.08em;
       text-transform:uppercase;
-      color:rgba(255,255,255,.65);
+      color:rgba(255,255,255,.62);
+      transition: color .18s ease;
+    }
+
+    .viewHint{
+      margin-top:8px;
+      padding-left:4px;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.44);
     }
 
     footer{
-      margin-top:40px;
+      margin-top:42px;
       text-align:center;
       font-size:12px;
       letter-spacing:.08em;
       text-transform:uppercase;
       color:rgba(255,255,255,.55);
     }
+
+    /* MODAL */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      place-items:center;
+      background: rgba(0,0,0,.82);
+      z-index:9999;
+      padding:18px;
+    }
+    .modal.open{display:grid;}
+
+    .modalInner{
+      width:min(1150px, 100%);
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(10,11,15,.80);
+      box-shadow: 0 30px 120px rgba(0,0,0,.75);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+    }
+
+    .modalTitle{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+      margin:0;
+      padding-left:4px;
+    }
+
+    .modalActions{display:flex;align-items:center;gap:10px;}
+
+    .pillBtn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.82);
+      border-radius:999px;
+      padding:9px 12px;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+    }
+    .pillBtn:hover{background: rgba(255,255,255,.10);border-color: rgba(255,255,255,.26);transform: translateY(-1px);}
+    .pillBtn.active{background: rgba(255,255,255,.14);border-color: rgba(255,255,255,.28);color:#fff;}
+
+    .closeBtn{
+      width:40px;height:40px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.30);
+      display:grid;place-items:center;
+      cursor:pointer;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .closeBtn:hover{transform: translateY(-1px);border-color: rgba(255,255,255,.30);background: rgba(0,0,0,.42);}
+    .closeBtn svg{width:18px;height:18px;fill:#fff;opacity:.92;}
+
+    .modalMedia{
+      width:100%;
+      aspect-ratio: 16/9;
+      background:#000;
+      position:relative;
+      overflow:hidden;
+    }
+    .modalMedia img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      background:#000;
+    }
+    .modalNote{
+      padding:12px 14px 14px;
+      color: rgba(255,255,255,.55);
+      font-size:12px;
+      letter-spacing:.06em;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .reveal{opacity:1;transform:none;transition:none}
+      .ba{transition:none}
+      .pair:hover .ba{transform:none}
+    }
   </style>
 </head>
 
 <body>
 
-<div class="top">
-  <div class="topInner" style="max-width:1100px;">
-    <a class="brand" href="../../index.html">Angel Disla</a>
-    <div class="nav">
-      <a href="../../index.html">Home</a>
-      <a href="../../work/">Work</a>
-      <a class="active" href="./">Lawrence</a>
-      <a href="../../video/">Video</a>
-      <a href="../../photo/">Photo</a>
-      <a href="mailto:angeldisla65@gmail.com">Contact</a>
+  <!-- GLOBAL NAV -->
+  <div class="top">
+    <div class="topInner" style="max-width:1100px;">
+      <a class="brand" href="../../index.html">Angel Disla</a>
+      <div class="nav">
+        <a href="../../index.html">Home</a>
+        <a href="../../work/">Work</a>
+        <a class="active" href="./">Lawrence</a>
+        <a href="../../video/">Video</a>
+        <a href="../../photo/">Photo</a>
+        <a href="mailto:angeldisla65@gmail.com">Contact</a>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="wrap">
-<section class="card">
+  <div class="wrap">
 
-  <div class="pad">
-    <div class="crumb">Home / Work / Lawrence</div>
-    <h1>Lawrence Is More Than Just An Immigrant City</h1>
-    <p class="desc">
-      A then/now archival series comparing historic photographs with present-day frames across Lawrence, Massachusetts —
-      built with the Lawrence History Center archive.
-    </p>
+    <section class="card">
+      <div class="pad reveal" style="--d:0ms">
+        <div class="crumb">Home / Work / Lawrence</div>
+        <h1>Lawrence Is More Than Just An Immigrant City</h1>
+        <p class="desc">
+          A then/now archival series comparing historic photographs with present-day frames across Lawrence, Massachusetts —
+          built with the Lawrence History Center archive.
+        </p>
+      </div>
+
+      <div class="grid">
+
+        <!-- Row 1 -->
+        <div class="pair reveal" style="--d:80ms">
+          <div class="ba" data-title="Bolton-Emerson Market St, corner of Springfield"
+               data-then="./assets/pairs/01-then.jpg" data-now="./assets/pairs/01-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/01-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/01-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">Bolton-Emerson Market St, corner of Springfield</div>
+          <div class="viewHint">Tap / click to view full frame</div>
+        </div>
+
+        <div class="pair reveal" style="--d:140ms">
+          <div class="ba" data-title="Essex St and Appleton Way"
+               data-then="./assets/pairs/02-then.jpg" data-now="./assets/pairs/02-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/02-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/02-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">Essex St and Appleton Way</div>
+          <div class="viewHint">Tap / click to view full frame</div>
+        </div>
+
+        <div class="pair reveal" style="--d:200ms">
+          <div class="ba" data-title="459 Essex St"
+               data-then="./assets/pairs/03-then.jpg" data-now="./assets/pairs/03-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/03-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/03-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">459 Essex St</div>
+          <div class="viewHint">Tap / click to view full frame</div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="pair reveal" style="--d:320ms">
+          <div class="ba" data-title="St. Mary's Church, Hampshire at Haverhill Street"
+               data-then="./assets/pairs/04-then.jpg" data-now="./assets/pairs/04-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/04-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/04-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">St. Mary's Church, Hampshire at Haverhill Street</div>
+          <div class="viewHint">Tap / click to view full frame</div>
+        </div>
+
+        <div class="pair reveal" style="--d:380ms">
+          <div class="ba" data-title="Essex St"
+               data-then="./assets/pairs/05-then.jpg" data-now="./assets/pairs/05-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/05-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/05-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">Essex St</div>
+          <div class="viewHint">Tap / click to view full frame</div>
+        </div>
+
+        <div class="pair reveal" style="--d:440ms">
+          <div class="ba" data-title="700 Essex St"
+               data-then="./assets/pairs/06-then.jpg" data-now="./assets/pairs/06-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/06-then.jpg" alt="Then">
+            <div class="topWrap"><img class="img" src="./assets/pairs/06-now.jpg" alt="Now"></div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">700 Essex St</div>
+          <div class="viewHint">Tap / click to view full frame</div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>© <span id="y"></span> Angel Disla</footer>
   </div>
 
-  <div class="grid">
+  <!-- MODAL -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modalInner" role="dialog" aria-label="Full frame viewer">
+      <div class="modalTop">
+        <p class="modalTitle" id="modalTitle">View full frame</p>
 
-    <!-- PAIRS 1–6 (unchanged paths) -->
-    <!-- keep your existing six .pair blocks exactly as before -->
+        <div class="modalActions">
+          <button class="pillBtn active" id="btnThen" type="button">Then</button>
+          <button class="pillBtn" id="btnNow" type="button">Now</button>
 
+          <button class="closeBtn" id="modalClose" type="button" aria-label="Close">
+            <svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="modalMedia">
+        <img id="modalImg" alt="Full frame">
+      </div>
+
+      <div class="modalNote">Tip: use Then/Now to compare full-frame images.</div>
+    </div>
   </div>
-</section>
 
-<footer>© <span id="y"></span> Angel Disla</footer>
-</div>
+  <script>
+    // year
+    document.getElementById("y").textContent = new Date().getFullYear();
 
-<script>
-  document.getElementById("y").textContent = new Date().getFullYear();
+    // Reveal on scroll (one-time)
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -10% 0px" });
+    revealEls.forEach(el => io.observe(el));
 
-  function setPos(el, clientX){
-    const r = el.getBoundingClientRect();
-    const x = Math.min(Math.max(clientX - r.left, 0), r.width);
-    el.style.setProperty("--pos", (x / r.width * 100) + "%");
-  }
+    // Slider logic
+    function setPos(el, clientX){
+      const r = el.getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - r.left, 0), r.width);
+      el.style.setProperty("--pos", (x / r.width * 100) + "%");
+    }
 
-  document.querySelectorAll(".ba").forEach(el=>{
-    let down=false;
-    el.addEventListener("mousedown",e=>{down=true;setPos(el,e.clientX)});
-    window.addEventListener("mousemove",e=>down&&setPos(el,e.clientX));
-    window.addEventListener("mouseup",()=>down=false);
-    el.addEventListener("touchstart",e=>{down=true;setPos(el,e.touches[0].clientX)},{passive:true});
-    el.addEventListener("touchmove",e=>down&&setPos(el,e.touches[0].clientX),{passive:true});
-    el.addEventListener("touchend",()=>down=false);
-    el.addEventListener("click",e=>setPos(el,e.clientX));
-  });
-</script>
+    const bas = Array.from(document.querySelectorAll(".ba"));
+    bas.forEach((el)=>{
+      let down = false;
+
+      el.addEventListener("mousedown", (e)=>{ down = true; setPos(el, e.clientX); });
+      window.addEventListener("mousemove", (e)=>{ if(down) setPos(el, e.clientX); });
+      window.addEventListener("mouseup", ()=>{ down = false; });
+
+      el.addEventListener("touchstart", (e)=>{ down = true; setPos(el, e.touches[0].clientX); }, {passive:true});
+      el.addEventListener("touchmove", (e)=>{ if(down) setPos(el, e.touches[0].clientX); }, {passive:true});
+      el.addEventListener("touchend", ()=>{ down = false; });
+
+      el.addEventListener("click", (e)=> setPos(el, e.clientX));
+    });
+
+    // Modal
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalClose = document.getElementById("modalClose");
+    const btnThen = document.getElementById("btnThen");
+    const btnNow = document.getElementById("btnNow");
+
+    let activeThen = "";
+    let activeNow = "";
+
+    function setModal(which){
+      btnThen.classList.toggle("active", which === "then");
+      btnNow.classList.toggle("active", which === "now");
+      modalImg.src = (which === "then") ? activeThen : activeNow;
+    }
+
+    function openModal(title, thenSrc, nowSrc){
+      activeThen = thenSrc;
+      activeNow = nowSrc;
+      modalTitle.textContent = title;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden","false");
+      setModal("then");
+    }
+
+    function closeModal(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden","true");
+      modalImg.src = "";
+    }
+
+    // Open modal on click (only if not dragging)
+    bas.forEach(el=>{
+      let moved = false;
+
+      el.addEventListener("mousedown", ()=>{ moved = false; });
+      el.addEventListener("mousemove", ()=>{ moved = true; });
+      el.addEventListener("mouseup", ()=>{
+        if(moved) return;
+        openModal(el.getAttribute("data-title") || "View full frame", el.getAttribute("data-then"), el.getAttribute("data-now"));
+      });
+
+      el.addEventListener("touchstart", ()=>{ moved = false; }, {passive:true});
+      el.addEventListener("touchmove", ()=>{ moved = true; }, {passive:true});
+      el.addEventListener("touchend", ()=>{
+        if(moved) return;
+        openModal(el.getAttribute("data-title") || "View full frame", el.getAttribute("data-then"), el.getAttribute("data-now"));
+      });
+    });
+
+    btnThen.addEventListener("click", ()=> setModal("then"));
+    btnNow.addEventListener("click", ()=> setModal("now"));
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
+
+    document.addEventListener("keydown", (e)=>{
+      if(!modal.classList.contains("open")) return;
+      if(e.key === "Escape") closeModal();
+    });
+  </script>
 
 </body>
 </html>
