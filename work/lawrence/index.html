@@ -34,10 +34,10 @@
     .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 70px;}
 
     .card{
-      border-radius:26px;
+      border-radius: 26px;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-      box-shadow:var(--shadow);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
       overflow:hidden;
       margin-top:18px;
     }
@@ -73,18 +73,19 @@
     @media (max-width:900px){ .grid{grid-template-columns: repeat(6,1fr);} }
     @media (max-width:640px){ .grid{grid-template-columns: repeat(1,1fr);} }
 
-    /* Before/After card */
+    /* Slider Card */
     .ba{
       grid-column: span 4;
-      border-radius:20px;
+      border-radius: 20px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.35);
       overflow:hidden;
       box-shadow: 0 18px 60px rgba(0,0,0,.55);
       position:relative;
-      aspect-ratio:16/10;
-      min-height:220px;
-      --pos:50%;
+      aspect-ratio: 16/10;
+      min-height: 220px;
+      touch-action: none; /* important: enables smooth dragging on mobile */
+      user-select:none;
     }
     @media (max-width:900px){ .ba{grid-column: span 6;} }
     @media (max-width:640px){ .ba{grid-column: span 1;} }
@@ -93,57 +94,70 @@
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit:cover;
+      display:block;
       user-select:none;
-    }
-    .ba .topWrap{
-      position:absolute; inset:0;
-      clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+      -webkit-user-drag:none;
     }
 
+    /* top image is clipped by --pos */
+    .ba .topWrap{
+      position:absolute; inset:0;
+      clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
+    }
+
+    /* handle */
     .handle{
       position:absolute;
       top:0; bottom:0;
-      left: var(--pos);
-      width:2px;
-      background:rgba(255,255,255,.7);
-      transform:translateX(-1px);
+      left: var(--pos, 50%);
+      width: 2px;
+      background: rgba(255,255,255,.70);
+      transform: translateX(-1px);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35);
       pointer-events:none;
     }
     .knob{
       position:absolute;
       top:50%;
-      left:var(--pos);
-      transform:translate(-50%,-50%);
-      width:44px;height:44px;
+      left: var(--pos, 50%);
+      transform: translate(-50%,-50%);
+      width:44px; height:44px;
       border-radius:999px;
-      background:rgba(0,0,0,.38);
       border:1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.38);
+      backdrop-filter: blur(10px);
       display:grid;
       place-items:center;
       pointer-events:none;
-      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
     }
+    .knob svg{width:18px;height:18px; fill:#fff; opacity:.9}
 
+    /* labels (fixed so they never clip) */
     .lab{
       position:absolute;
       bottom:10px;
       font-size:11px;
       letter-spacing:.14em;
       text-transform:uppercase;
-      color:rgba(255,255,255,.7);
-      background:rgba(0,0,0,.32);
+      color: rgba(255,255,255,.72);
+      background: rgba(0,0,0,.32);
       border:1px solid rgba(255,255,255,.12);
-      padding:7px 10px;
+      padding:6px 9px;              /* slightly tighter so "NOW" never clips */
       border-radius:999px;
       backdrop-filter: blur(10px);
+      user-select:none;
+      max-width: calc(100% - 20px);  /* safety */
+      white-space: nowrap;
     }
     .lab.then{left:10px}
-    .lab.now{right:10px}
+    .lab.now{right:12px}            /* a touch more breathing room */
 
+    /* caption under each slider */
     .caption{
       margin-top:10px;
       font-size:12px;
-      color:rgba(255,255,255,.62);
+      color: rgba(255,255,255,.62);
       letter-spacing:.06em;
       text-transform:uppercase;
     }
@@ -161,138 +175,180 @@
 
 <body>
 
-<!-- NAV -->
-<div class="top">
-  <div class="topInner" style="max-width:1100px;">
-    <a class="brand" href="../../">Angel Disla</a>
-    <div class="nav">
-      <a href="../../">Home</a>
-      <a href="../../work/">Work</a>
-      <a class="active" href="./">Lawrence</a>
-      <a href="../../video/">Video</a>
-      <a href="../../photo/">Photo</a>
-      <a href="../../contact/">Contact</a>
+  <!-- GLOBAL NAV -->
+  <div class="top">
+    <div class="topInner" style="max-width:1100px;">
+      <a class="brand" href="../../index.html">Angel Disla</a>
+      <div class="nav">
+        <a href="../../index.html">Home</a>
+        <a href="../../work/">Work</a>
+        <a class="active" href="./">Lawrence</a>
+        <a href="../../video/">Video</a>
+        <a href="../../photo/">Photo</a>
+        <a href="../../contact/">Contact</a>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="wrap">
+  <div class="wrap">
 
-<section class="card">
-  <div class="pad">
-    <div class="crumb">Home / Work / Lawrence</div>
-    <h1>Lawrence Is More Than Just An Immigrant City</h1>
-    <p class="desc">
-      A then/now archival series comparing historic photographs with present-day frames across Lawrence, Massachusetts —
-      built with the Lawrence History Center archive.
-    </p>
+    <section class="card">
+      <div class="pad">
+        <div class="crumb">Home / Work / Lawrence</div>
+        <h1>Lawrence Is More Than Just An Immigrant City</h1>
+        <p class="desc">
+          A then/now archival series comparing historic photographs with present-day frames across Lawrence, Massachusetts —
+          built with the Lawrence History Center archive.
+        </p>
+      </div>
+
+      <div class="grid">
+
+        <!-- Pair 01 -->
+        <div>
+          <div class="ba" data-then="./assets/pairs/01-then.jpg" data-now="./assets/pairs/01-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/01-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/01-now.jpg" alt="Now">
+            </div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">Bolton-Emerson Market St, corner of Springfield</div>
+        </div>
+
+        <!-- Pair 02 -->
+        <div>
+          <div class="ba" data-then="./assets/pairs/02-then.jpg" data-now="./assets/pairs/02-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/02-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/02-now.jpg" alt="Now">
+            </div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">Essex St and Appleton Way</div>
+        </div>
+
+        <!-- Pair 03 -->
+        <div>
+          <div class="ba" data-then="./assets/pairs/03-then.jpg" data-now="./assets/pairs/03-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/03-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/03-now.jpg" alt="Now">
+            </div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">459 Essex St</div>
+        </div>
+
+        <!-- Pair 04 -->
+        <div>
+          <div class="ba" data-then="./assets/pairs/04-then.jpg" data-now="./assets/pairs/04-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/04-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/04-now.jpg" alt="Now">
+            </div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">St. Mary’s Church, Hampshire at Haverhill Street</div>
+        </div>
+
+        <!-- Pair 05 -->
+        <div>
+          <div class="ba" data-then="./assets/pairs/05-then.jpg" data-now="./assets/pairs/05-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/05-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/05-now.jpg" alt="Now">
+            </div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4vиват" /></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">Essex St</div>
+        </div>
+
+        <!-- Pair 06 -->
+        <div>
+          <div class="ba" data-then="./assets/pairs/06-then.jpg" data-now="./assets/pairs/06-now.jpg" style="--pos:50%">
+            <img class="img" src="./assets/pairs/06-then.jpg" alt="Then">
+            <div class="topWrap">
+              <img class="img" src="./assets/pairs/06-now.jpg" alt="Now">
+            </div>
+            <div class="handle"></div>
+            <div class="knob" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
+            </div>
+            <div class="lab then">Then</div>
+            <div class="lab now">Now</div>
+          </div>
+          <div class="caption">700 Essex St</div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>© <span id="y"></span> Angel Disla</footer>
   </div>
 
-  <div class="grid">
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
 
-    <!-- Pair 1 -->
-    <div>
-      <div class="ba">
-        <img class="img" src="./assets/pairs/01-then.jpg">
-        <div class="topWrap"><img class="img" src="./assets/pairs/01-now.jpg"></div>
-        <div class="handle"></div>
-        <div class="knob"></div>
-        <div class="lab then">Then</div>
-        <div class="lab now">Now</div>
-      </div>
-      <div class="caption">Bolton-Emerson Market St, corner of Springfield</div>
-    </div>
+    function setPos(el, clientX){
+      const r = el.getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - r.left, 0), r.width);
+      const pct = (x / r.width) * 100;
+      el.style.setProperty("--pos", pct + "%");
+    }
 
-    <!-- Pair 2 -->
-    <div>
-      <div class="ba">
-        <img class="img" src="./assets/pairs/02-then.jpg">
-        <div class="topWrap"><img class="img" src="./assets/pairs/02-now.jpg"></div>
-        <div class="handle"></div>
-        <div class="knob"></div>
-        <div class="lab then">Then</div>
-        <div class="lab now">Now</div>
-      </div>
-      <div class="caption">Essex St and Appleton Way</div>
-    </div>
+    document.querySelectorAll(".ba").forEach((el)=>{
+      let dragging = false;
 
-    <!-- Pair 3 -->
-    <div>
-      <div class="ba">
-        <img class="img" src="./assets/pairs/03-then.jpg">
-        <div class="topWrap"><img class="img" src="./assets/pairs/03-now.jpg"></div>
-        <div class="handle"></div>
-        <div class="knob"></div>
-        <div class="lab then">Then</div>
-        <div class="lab now">Now</div>
-      </div>
-      <div class="caption">459 Essex St</div>
-    </div>
+      // Use Pointer Events (works for mouse + touch)
+      el.addEventListener("pointerdown", (e)=>{
+        dragging = true;
+        el.setPointerCapture(e.pointerId);
+        setPos(el, e.clientX);
+      });
 
-    <!-- Pair 4 -->
-    <div>
-      <div class="ba">
-        <img class="img" src="./assets/pairs/04-then.jpg">
-        <div class="topWrap"><img class="img" src="./assets/pairs/04-now.jpg"></div>
-        <div class="handle"></div>
-        <div class="knob"></div>
-        <div class="lab then">Then</div>
-        <div class="lab now">Now</div>
-      </div>
-      <div class="caption">St. Mary’s Church, Hampshire at Haverhill Street</div>
-    </div>
+      el.addEventListener("pointermove", (e)=>{
+        if(!dragging) return;
+        setPos(el, e.clientX);
+      });
 
-    <!-- Pair 5 -->
-    <div>
-      <div class="ba">
-        <img class="img" src="./assets/pairs/05-then.jpg">
-        <div class="topWrap"><img class="img" src="./assets/pairs/05-now.jpg"></div>
-        <div class="handle"></div>
-        <div class="knob"></div>
-        <div class="lab then">Then</div>
-        <div class="lab now">Now</div>
-      </div>
-      <div class="caption">Essex St</div>
-    </div>
+      el.addEventListener("pointerup", ()=>{
+        dragging = false;
+      });
 
-    <!-- Pair 6 -->
-    <div>
-      <div class="ba">
-        <img class="img" src="./assets/pairs/06-then.jpg">
-        <div class="topWrap"><img class="img" src="./assets/pairs/06-now.jpg"></div>
-        <div class="handle"></div>
-        <div class="knob"></div>
-        <div class="lab then">Then</div>
-        <div class="lab now">Now</div>
-      </div>
-      <div class="caption">700 Essex St</div>
-    </div>
+      el.addEventListener("pointercancel", ()=>{
+        dragging = false;
+      });
 
-  </div>
-</section>
-
-<footer>© <span id="y"></span> Angel Disla</footer>
-</div>
-
-<script>
-  document.getElementById("y").textContent = new Date().getFullYear();
-
-  function setPos(el, x){
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--pos", Math.min(Math.max((x - r.left) / r.width * 100, 0), 100) + "%");
-  }
-
-  document.querySelectorAll(".ba").forEach(el=>{
-    let down=false;
-    el.addEventListener("mousedown",e=>{down=true;setPos(el,e.clientX)});
-    window.addEventListener("mousemove",e=>down&&setPos(el,e.clientX));
-    window.addEventListener("mouseup",()=>down=false);
-    el.addEventListener("touchstart",e=>{down=true;setPos(el,e.touches[0].clientX)},{passive:true});
-    el.addEventListener("touchmove",e=>down&&setPos(el,e.touches[0].clientX),{passive:true});
-    el.addEventListener("touchend",()=>down=false);
-    el.addEventListener("click",e=>setPos(el,e.clientX));
-  });
-</script>
+      // click-to-jump (still works)
+      el.addEventListener("click", (e)=> setPos(el, e.clientX));
+    });
+  </script>
 
 </body>
 </html>
