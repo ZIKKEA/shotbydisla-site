@@ -16,7 +16,6 @@
       --muted:rgba(255,255,255,.70);
       --line:rgba(255,255,255,.12);
       --shadow: 0 26px 90px rgba(0,0,0,.68);
-      --r:22px;
       --max:1100px;
     }
     *{box-sizing:border-box}
@@ -84,7 +83,7 @@
       position:relative;
       aspect-ratio: 16/10;
       min-height: 220px;
-      touch-action: none; /* important: enables smooth dragging on mobile */
+      touch-action:none;
       user-select:none;
     }
     @media (max-width:900px){ .ba{grid-column: span 6;} }
@@ -133,7 +132,7 @@
     }
     .knob svg{width:18px;height:18px; fill:#fff; opacity:.9}
 
-    /* labels (fixed so they never clip) */
+    /* labels OUTSIDE clip layer */
     .lab{
       position:absolute;
       bottom:10px;
@@ -143,17 +142,16 @@
       color: rgba(255,255,255,.72);
       background: rgba(0,0,0,.32);
       border:1px solid rgba(255,255,255,.12);
-      padding:6px 9px;              /* slightly tighter so "NOW" never clips */
+      padding:6px 9px;
       border-radius:999px;
       backdrop-filter: blur(10px);
       user-select:none;
-      max-width: calc(100% - 20px);  /* safety */
-      white-space: nowrap;
+      white-space:nowrap;
+      z-index:5;
     }
-    .lab.then{left:10px}
-    .lab.now{right:12px}            /* a touch more breathing room */
+    .lab.then{left:12px}
+    .lab.now{right:12px}
 
-    /* caption under each slider */
     .caption{
       margin-top:10px;
       font-size:12px;
@@ -206,7 +204,7 @@
 
         <!-- Pair 01 -->
         <div>
-          <div class="ba" data-then="./assets/pairs/01-then.jpg" data-now="./assets/pairs/01-now.jpg" style="--pos:50%">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/01-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/01-now.jpg" alt="Now">
@@ -218,12 +216,12 @@
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">Bolton-Emerson Market St, corner of Springfield</div>
+          <div class="caption">St. Mary’s Church, Hampshire at Haverhill Street</div>
         </div>
 
         <!-- Pair 02 -->
         <div>
-          <div class="ba" data-then="./assets/pairs/02-then.jpg" data-now="./assets/pairs/02-now.jpg" style="--pos:50%">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/02-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/02-now.jpg" alt="Now">
@@ -235,12 +233,12 @@
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">Essex St and Appleton Way</div>
+          <div class="caption">Essex St</div>
         </div>
 
         <!-- Pair 03 -->
         <div>
-          <div class="ba" data-then="./assets/pairs/03-then.jpg" data-now="./assets/pairs/03-now.jpg" style="--pos:50%">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/03-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/03-now.jpg" alt="Now">
@@ -252,12 +250,12 @@
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">459 Essex St</div>
+          <div class="caption">700 Essex St</div>
         </div>
 
         <!-- Pair 04 -->
         <div>
-          <div class="ba" data-then="./assets/pairs/04-then.jpg" data-now="./assets/pairs/04-now.jpg" style="--pos:50%">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/04-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/04-now.jpg" alt="Now">
@@ -269,29 +267,29 @@
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">St. Mary’s Church, Hampshire at Haverhill Street</div>
+          <div class="caption">Bolton-Emerson Market St, corner of Springfield</div>
         </div>
 
         <!-- Pair 05 -->
         <div>
-          <div class="ba" data-then="./assets/pairs/05-then.jpg" data-now="./assets/pairs/05-now.jpg" style="--pos:50%">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/05-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/05-now.jpg" alt="Now">
             </div>
             <div class="handle"></div>
             <div class="knob" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4vиват" /></svg>
+              <svg viewBox="0 0 24 24"><path d="M8 12l4-4v3h4v2h-4v3zM16 12l-4 4v-3H8v-2h4V8z"/></svg>
             </div>
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">Essex St</div>
+          <div class="caption">Essex St and Appleton Way</div>
         </div>
 
         <!-- Pair 06 -->
         <div>
-          <div class="ba" data-then="./assets/pairs/06-then.jpg" data-now="./assets/pairs/06-now.jpg" style="--pos:50%">
+          <div class="ba" style="--pos:50%">
             <img class="img" src="./assets/pairs/06-then.jpg" alt="Then">
             <div class="topWrap">
               <img class="img" src="./assets/pairs/06-now.jpg" alt="Now">
@@ -303,7 +301,7 @@
             <div class="lab then">Then</div>
             <div class="lab now">Now</div>
           </div>
-          <div class="caption">700 Essex St</div>
+          <div class="caption">459 Essex St</div>
         </div>
 
       </div>
@@ -325,7 +323,6 @@
     document.querySelectorAll(".ba").forEach((el)=>{
       let dragging = false;
 
-      // Use Pointer Events (works for mouse + touch)
       el.addEventListener("pointerdown", (e)=>{
         dragging = true;
         el.setPointerCapture(e.pointerId);
@@ -337,15 +334,9 @@
         setPos(el, e.clientX);
       });
 
-      el.addEventListener("pointerup", ()=>{
-        dragging = false;
-      });
+      el.addEventListener("pointerup", ()=> dragging = false);
+      el.addEventListener("pointercancel", ()=> dragging = false);
 
-      el.addEventListener("pointercancel", ()=>{
-        dragging = false;
-      });
-
-      // click-to-jump (still works)
       el.addEventListener("click", (e)=> setPos(el, e.clientX));
     });
   </script>
