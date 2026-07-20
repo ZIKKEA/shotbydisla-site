@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>About — Angel Disla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta name="description" content="About Angel Disla — Digital Media Artist & Visual Storyteller. Bio, gear, festivals, and clients.">
+  <link rel="icon" href="../assets/favicon.ico">
+  <script src="/assets/nav.js" defer></script>
+  <link rel="stylesheet" href="../assets/global.css">
+
+  <style>
+    :root{
+      --bg0:#07080a;
+      --bg1:#0a0b0f;
+      --fg:#ffffff;
+      --shadow: 0 22px 70px rgba(0,0,0,.62);
+      --r:20px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 700px at 20% -10%, rgba(255,255,255,.07), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(255,255,255,.04), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.01em;
+    }
+    a{color:inherit;text-decoration:none}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 70px;}
+
+    /* HERO / INTRO */
+    .intro{
+      display:grid;
+      grid-template-columns: 220px 1fr;
+      gap:28px;
+      align-items:center;
+      border-radius:var(--r);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      padding:26px;
+      margin-bottom:18px;
+    }
+    .portrait{
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.16);
+      background:#101114;
+      flex-shrink:0;
+    }
+    .portrait img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .introText h1{
+      margin:0 0 8px;
+      font-size: clamp(28px, 3.4vw, 40px);
+      letter-spacing:-.02em;
+    }
+    .introText .role{
+      margin:0 0 14px;
+      font-size:14px;
+      color:rgba(255,255,255,.66);
+      letter-spacing:.04em;
+    }
+    .introText .bio{
+      margin:0;
+      font-size:14.5px;
+      line-height:1.8;
+      color:rgba(255,255,255,.80);
+      max-width:70ch;
+    }
+
+    @media (max-width:700px){
+      .intro{
+        grid-template-columns: 1fr;
+        text-align:center;
+        justify-items:center;
+      }
+      .introText .bio{ max-width:100%; }
+    }
+
+    /* SECTION CARD */
+    .section{
+      margin-top:18px;
+      border-radius:var(--r);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .sectionPad{padding:22px;}
+    .kicker{
+      margin:0 0 12px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.64);
+    }
+
+    /* AWARDS / FESTIVALS */
+    .awardRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:12px;
+      padding:12px 0;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .awardRow:last-child{ border-bottom:none; }
+    .awardName{
+      font-size:14.5px;
+      color:rgba(255,255,255,.90);
+    }
+    .awardYear{
+      font-size:12.5px;
+      color:rgba(255,255,255,.55);
+      letter-spacing:.06em;
+      white-space:nowrap;
+    }
+
+    /* CONTACT CTA */
+    .ctaCard{
+      margin-top:18px;
+      border-radius:var(--r);
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      padding:30px 26px;
+      text-align:center;
+    }
+    .ctaCard h2{
+      margin:0 0 8px;
+      font-size:22px;
+      letter-spacing:-.01em;
+    }
+    .ctaCard p{
+      margin:0 0 18px;
+      font-size:14px;
+      color:rgba(255,255,255,.70);
+    }
+    .ctaBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 24px;
+      border-radius:999px;
+      background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.24);
+      font-size:14px;
+      font-weight:560;
+      box-shadow: 0 10px 26px rgba(0,0,0,.32);
+      transition: transform .18s ease, background .18s ease;
+    }
+    .ctaBtn:hover{
+      transform: translateY(-2px);
+      background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.09));
+    }
+
+    footer{
+      margin-top:26px;
+      text-align:center;
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top">
+    <div class="topInner" style="max-width:1100px;">
+      <div id="site-nav"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- INTRO: portrait + bio -->
+    <section class="intro">
+      <div class="portrait">
+        <!-- TODO: replace with your actual portrait -->
+        <img src="../assets/portrait.jpg" alt="Portrait of Angel Disla">
+      </div>
+      <div class="introText">
+        <h1>Angel Disla</h1>
+        <p class="role">Digital Media Artist &amp; Visual Storyteller · UMass Lowell '26</p>
+        <p class="bio">
+          I'm a filmmaker and photographer graduating from UMass Lowell with a BA in Digital Media
+          and a minor in Marketing. My work moves between documentary and narrative storytelling,
+          rooted in community — from founding UMass Lowell's Photography Club to projects built
+          around the city I grew up in, Lawrence, MA. I care about stories that feel honest, human,
+          and intentional, whether that's a reverse-chronology short film or a then/now archival series.
+        </p>
+      </div>
+    </section>
+
+    <!-- AWARDS & FESTIVALS -->
+    <section class="section">
+      <div class="sectionPad">
+        <p class="kicker">Awards &amp; Festival Selections</p>
+        <div class="awardRow">
+          <span class="awardName">Massachusetts Independent Film Festival — Nominated, Best Student Short</span>
+          <span class="awardYear">2026</span>
+        </div>
+        <div class="awardRow">
+          <span class="awardName">Independent Film Festival Boston Student Showcase</span>
+          <span class="awardYear">2026</span>
+        </div>
+        <div class="awardRow">
+          <span class="awardName">Lowell Film Festival for Future Filmmakers</span>
+          <span class="awardYear">2026</span>
+        </div>
+        <div class="awardRow">
+          <span class="awardName">Digital Media Program Capstone Award</span>
+          <span class="awardYear">2026</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <div class="ctaCard">
+      <h2>Let's work together</h2>
+      <p>Have a project in mind? I'd love to hear about it.</p>
+      <a class="ctaBtn" href="/contact/">Get in touch →</a>
+    </div>
+
+    <footer>© <span id="y"></span> Angel Disla</footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
